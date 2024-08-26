@@ -10,7 +10,7 @@ import pages.spalnya.matraci.Matraci;
 public class Spalnya extends HomePage {
 
     protected String breadCrumbXpath = breadCrumbXpathBuilder("Спальня");
-    protected String pageUrl = super.url + "/spalnya";
+    protected String pageUrl = super.pageUrl + "/spalnya";
 
     public Spalnya(WebDriver webDriver) {
         super(webDriver);

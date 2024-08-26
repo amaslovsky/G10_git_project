@@ -5,8 +5,13 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import variables.Variables;
+
+import java.time.Duration;
 
 public class ActionsOnElements {
     protected WebDriver webDriver;
@@ -22,6 +27,22 @@ public class ActionsOnElements {
             String elementName = getElementName(webElement);
             webElement.click();
             logger.info(elementName + " Element was clicked");
+        } catch (Exception e) {
+            printErrorAndStopTest(e);
+        }
+    }
+
+    protected void clickOnElement(String xPath) {
+        try {
+            Actions actions = new Actions(webDriver);
+            WebDriverWait webDriverWait15 = new WebDriverWait(webDriver, Duration.ofSeconds(15));
+            WebElement webElement = webDriver.findElement(By.xpath(xPath));
+            actions.scrollToElement(webElement).build().perform();
+            actions.moveToElement(webElement).build().perform();
+            webDriverWait15.until(ExpectedConditions.visibilityOf(webElement));
+//            WebElement webElement = webDriver.findElement(By.xpath(xPath));
+            webElement.click();
+            logger.info(" Element was clicked");
         } catch (Exception e) {
             printErrorAndStopTest(e);
         }

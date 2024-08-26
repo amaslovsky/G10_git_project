@@ -7,13 +7,20 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pages.outlet.Outlet;
 import pages.spalnya.Spalnya;
 import variables.Variables;
 
 import java.time.Duration;
+import java.util.ArrayList;
 
 public class HomePage extends ActionsOnElements {
-    protected String url = Variables.url;
+    public ArrayList<String> namesOfSelectedProducts = new ArrayList<>();
+    public ArrayList<String> getNamesOfSelectedProducts() {
+        return namesOfSelectedProducts;
+    }
+
+    protected String pageUrl = Variables.url;
 
     public HomePage(WebDriver webDriver) {
         super(webDriver);
@@ -46,4 +53,17 @@ public class HomePage extends ActionsOnElements {
         return new Spalnya(webDriver);
     }
 
+    public Outlet openOutletPage() {
+        clickOnElement("//span[text()='Outlet']");
+        return new Outlet(webDriver);
+    }
+
+    public MenuElement getMenuElement() {
+        return new MenuElement(webDriver);
+    }
+
+    public HomePage clickOnMenuButton() {
+        clickOnElement("//span[text()='Меню']");
+        return this;
+    }
 }

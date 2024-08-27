@@ -13,10 +13,10 @@ public class ObraneTest extends InitWebDriver {
                 .clickOnOutletMenuButton()
                 .checkIsRedirectToOutletPage()
                 .markRandomProductsAsObrane()
-                .printObraneList()
                 .openObranePage()
                 .checkIsRedirectToObranePage()
                 .printObraneList()
+                .compareSelectedProductsAndDisplayedProducts()
                 ;
     }
 }

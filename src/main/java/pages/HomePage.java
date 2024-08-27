@@ -15,9 +15,13 @@ import java.time.Duration;
 import java.util.ArrayList;
 
 public class HomePage extends ActionsOnElements {
-    public ArrayList<String> namesOfSelectedProducts = new ArrayList<>();
+    public static  ArrayList<String> namesOfSelectedProducts = new ArrayList<>();
     public ArrayList<String> getNamesOfSelectedProducts() {
         return namesOfSelectedProducts;
+    }
+
+    public int getSizeOfSelectedProducts() {
+        return namesOfSelectedProducts.size();
     }
 
     protected String pageUrl = Variables.url;

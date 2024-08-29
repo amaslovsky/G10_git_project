@@ -4,70 +4,77 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import pages.outlet.Outlet;
-import pages.spalnya.Spalnya;
-import variables.Variables;
+import org.openqa.selenium.support.FindBy;
+import pages.headerElements.HeaderElements;
 
-import java.time.Duration;
-import java.util.ArrayList;
+import static variables.Variables.breadCrumbXpath;
+import static variables.Variables.url;
 
-public class HomePage extends ActionsOnElements {
-    public static  ArrayList<String> namesOfSelectedProducts = new ArrayList<>();
-    public ArrayList<String> getNamesOfSelectedProducts() {
-        return namesOfSelectedProducts;
-    }
+public abstract class HomePage extends ActionsOnElements {
 
-    public int getSizeOfSelectedProducts() {
-        return namesOfSelectedProducts.size();
-    }
+    @FindBy (xpath = "//button[contains(@onclick, 'declineAll')]")
+    private WebElement cookieAgreement;
 
-    protected String pageUrl = Variables.url;
+    @FindBy (xpath = "//*[@title='Домашня сторінка']")
+    private WebElement homePageContent;
+
+
+    protected abstract String getRelativeUrl();
+
+    protected abstract String getRelativeBreadCrumb();
 
     public HomePage(WebDriver webDriver) {
         super(webDriver);
     }
 
+    protected void checkUrl() {
+        Assert.assertEquals("URL is not expected",
+                url + getRelativeUrl(),
+                webDriver.getCurrentUrl());
+            logger.info("Current URL " + webDriver.getCurrentUrl() + " equals to expected URL");
+    }
+
+    protected void checkBreadCrumb() {
+        if (getRelativeBreadCrumb() != null) {
+            Assert.assertTrue("BreadCrumb is not displayed ",
+                    isElementVisible(getCurrentBreadCrumb()));
+            logger.info("Current BreadCrumb " + getCurrentBreadCrumb().getText() + " is displayed correctly");
+        } else {
+            logger.info("Page does not have BreadCrumb");
+        }
+    }
+
+    public WebElement getCurrentBreadCrumb() {
+        String fullXpath = breadCrumbXpath + getRelativeBreadCrumb();
+        return webDriver.findElement(By.xpath(fullXpath));
+    }
+
     public HomePage openHomePage() {
-        webDriver.get(Variables.url);
+        webDriver.get(url);
         closeCookiePopup();
         Assert.assertTrue("HomePage page is not loaded",
-                webDriver.findElement(By.xpath("//div[@class='frontpage']")).isDisplayed());
-        logger.info("HomePage was opened " + Variables.url);
+                isElementVisible(homePageContent, "Домашня сторінка"));
+        logger.info("HomePage was opened " + url);
         return this;
     }
 
     private HomePage closeCookiePopup() {
-        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(30));
-        WebElement cookiePopupCloseButton = wait.until(ExpectedConditions.visibilityOfElementLocated
-                (By.xpath("//button[contains(@onclick, 'declineAll')]")));
-        clickOnElement(cookiePopupCloseButton);
+        clickOnElement(cookieAgreement);
+//        Assert.assertFalse("Cookie popup is not closed",
+//                isElementVisible(cookieAgreement));
         logger.info("Cookie popup was closed");
         webDriver.switchTo().defaultContent();
         return this;
     }
 
-    public Spalnya openSpalnyaPage() {
-        WebElement spl = webDriver.findElement(By.xpath("//div[contains(@class, 'category')]//span[text()='Спальня']"));
-        Actions actions = new Actions(webDriver);
-        actions.moveToElement(spl).perform();
-        clickOnElement(spl);
-        return new Spalnya(webDriver);
-    }
-
-    public Outlet openOutletPage() {
-        clickOnElement("//span[text()='Outlet']");
-        return new Outlet(webDriver);
-    }
-
-    public MenuElement getMenuElement() {
-        return new MenuElement(webDriver);
-    }
-
-    public HomePage clickOnMenuButton() {
-        clickOnElement("//span[text()='Меню']");
+    public HomePage checkIsRedirectOnHomePage() {
+        checkUrl();
+        checkBreadCrumb();
         return this;
+        }
+
+    public HeaderElements getHeaderElement() {
+        return new HeaderElements(webDriver);
     }
 }
+

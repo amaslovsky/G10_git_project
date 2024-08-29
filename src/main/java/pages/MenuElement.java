@@ -16,10 +16,12 @@ public class MenuElement extends ActionsOnElements {
 
     public MenuElement getMenuElement() {
         return new MenuElement(webDriver);
+//        return this;
     }
 
     public Outlet clickOnOutletMenuButton() {
         clickOnElement(buttonOutlet);
         return new Outlet(webDriver);
     }
+
 }

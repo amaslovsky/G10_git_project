@@ -1,65 +1,79 @@
 package pages.obrane;
 
+import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import pages.HomePage;
 
 import java.util.ArrayList;
 
+import static variables.Variables.listNamesSelectedProducts;
+
 public class Obrane extends HomePage {
-    protected String breadCrumbXpath = breadCrumbXpathBuilder("Обране");
-    protected String pageUrl = super.pageUrl + "/customer/favourites";
+    private String productsSection = "//div[contains(@class, 'wishlist-products')]//span[contains(@class, 'name')]";
+
+    @FindBy(xpath = "//span[contains(@class, 'count')]")
+    private WebElement productsInHeartElement;
+
+    @Override
+    protected String getRelativeUrl() {
+        return "/customer/favourites";
+    }
+
+    @Override
+    protected String getRelativeBreadCrumb() {
+        return "//*[text()='Обране']";
+    }
 
     public Obrane(WebDriver webDriver) {
         super(webDriver);
     }
 
     public Obrane checkIsRedirectToObranePage() {
-        checkUrl(pageUrl);
-        Assert.assertTrue(breadCrumbXpath+"It is not Obrane page", isElementVisible(breadCrumbXpath));
+        checkUrl();
+        checkBreadCrumb();
         return this;
     }
 
-    public Obrane printObraneList() {
-        System.out.println("List of selected products:");
-        for (String name : getNamesOfSelectedProducts()) {
-            System.out.println(name);
-        }
-        return this;
-    }
+    public Obrane isDisplayedSelectedProductsOnObranePage() {
+        ArrayList<WebElement> products = getWebElements(productsSection);
 
-    public Obrane compareSelectedProductsAndDisplayedProducts() {
-        ArrayList<WebElement> elements = new ArrayList<>(webDriver.findElements
-                (By.xpath("//div[contains(@class, 'wishlist-products')]//div[contains(@class, 'product-container')]")));
-        int pageElementsNumber = elements.size();
-        boolean isPresent = findElementOnPage(elements);
+        int obraneNumberInHeart = Integer.valueOf(getElementName(productsInHeartElement));
+        boolean isPresent = checkProductsFromObraneListPresentOnPage(products, listNamesSelectedProducts);
+
+        Assert.assertEquals("Number in the 'heart' icon does not match the number of 'Obrane' products.",
+                listNamesSelectedProducts.size(), obraneNumberInHeart);
+        logger.info("Number in the 'heart' icon " + obraneNumberInHeart
+                + " equals to the number " + listNamesSelectedProducts.size() + " of 'Obrane' products");
 
         Assert.assertEquals("Number of elements on the page is not equal to the number of selected products",
-                getSizeOfSelectedProducts(),pageElementsNumber);
-        logger.info("Number of elements on the page " + pageElementsNumber
-                + " equals to the number " + getSizeOfSelectedProducts() + " of selected products");
+                listNamesSelectedProducts.size(),products.size());
+        logger.info("Number of elements on the page " + products.size()
+                + " equals to the number " + listNamesSelectedProducts.size() + " of selected products");
 
         Assert.assertTrue("Not all elements from the selected products are displayed on the page", isPresent);
-        logger.info("Number of elements on the page " + pageElementsNumber
-                + " equals to the number " + getSizeOfSelectedProducts() + " of selected products");
+        logger.info("All elements from the selected products are displayed on the page");
         return this;
     }
 
-    private boolean findElementOnPage(ArrayList<WebElement> elements) {
-        for (String name : getNamesOfSelectedProducts()) {
-            boolean isPresent = false;
-            for (WebElement element : elements) {
-                if (element.getText().contains(name)) {
-                    isPresent = true;
-                    break;
-                }
-            }
-            if (!isPresent) {
-                return false;
-            }
+    protected boolean checkProductsFromObraneListPresentOnPage (ArrayList<WebElement> elements, ArrayList<String> getNamesOfSelectedProducts) {
+        SoftAssertions softAssertions = new SoftAssertions();
+        boolean isPresent = false;
+        ArrayList<String> elementsNames = new ArrayList<>();
+        for (WebElement element : elements) elementsNames.add(element.getText());
+
+        for (String name : getNamesOfSelectedProducts) {
+            softAssertions
+                    .assertThat(name)
+                    .as("Can't see " + name)
+                    .isIn(elementsNames);
+            if (elementsNames.contains(name)) isPresent = true;
         }
-        return true;
+        softAssertions.assertAll();
+        return isPresent;
     }
+
+
 }

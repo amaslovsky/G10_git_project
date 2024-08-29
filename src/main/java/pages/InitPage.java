@@ -1,7 +1,6 @@
 package pages;
 
 import org.openqa.selenium.WebDriver;
-import pages.spalnya.Spalnya;
 
 public class InitPage extends ActionsOnElements{
 
@@ -10,12 +9,22 @@ public class InitPage extends ActionsOnElements{
     }
 
     public HomePage getHomePage() {
-        return new HomePage(webDriver);
+        return new HomePage(webDriver) {
+            @Override
+            protected String getRelativeUrl() {
+                return "/";
+            }
+
+            @Override
+            protected String getRelativeBreadCrumb() {
+                return null;
+            }
+        };
     }
 
-    public Spalnya getSpalnyaPage() {
-        return new Spalnya(webDriver);
-    }
+//    public Spalnya getSpalnyaPage() {
+//        return new Spalnya(webDriver);
+//    }
 
 
 }

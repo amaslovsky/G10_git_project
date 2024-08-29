@@ -8,15 +8,14 @@ public class ObraneTest extends InitWebDriver {
         initPage
                 .getHomePage()
                 .openHomePage()
-                .clickOnMenuButton()
-                .getMenuElement()
-                .clickOnOutletMenuButton()
+                .checkIsRedirectOnHomePage()
+                .getHeaderElement().clickOnMenuButton()
+                .getMenuElement().clickOnOutletMenuButton()
                 .checkIsRedirectToOutletPage()
                 .markRandomProductsAsObrane()
-                .openObranePage()
+                .getHeaderElement().clickOnObraneMenuButton()
                 .checkIsRedirectToObranePage()
-                .printObraneList()
-                .compareSelectedProductsAndDisplayedProducts()
-                ;
+                .isDisplayedSelectedProductsOnObranePage()
+        ;
     }
 }

@@ -17,6 +17,10 @@ import java.util.ArrayList;
 import static variables.Variables.listNamesSelectedProducts;
 
 public class ActionsOnElements {
+
+    Actions actions;
+    WebDriverWait webDriverWait15;
+
     protected WebDriver webDriver;
     protected Logger logger = Logger.getLogger(getClass());
     protected String allProducts = "(//div[contains(@class, 'product-container')])";
@@ -26,9 +30,6 @@ public class ActionsOnElements {
 
     @FindBy(xpath = "//span[text()='Обране']")
     private WebElement anchor4topOfPage;
-
-    Actions actions;
-    WebDriverWait webDriverWait15;
 
     public ActionsOnElements(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -152,12 +153,17 @@ public class ActionsOnElements {
             String webElementText = getElementName(webDriver.findElement
                     (By.xpath(String.format(nameProductXpath, index))));
 //            logger.info(webElementText + " product selected to be added to list");
-            return webElementText;
+            if (webElementText.isEmpty()) {
+                logger.info("Product name is not present");
+                Assert.fail("Product name is not present");
+            }else {
+                return webElementText;
+            }
+
         } catch (Exception e) {
-            logger.error("Can not get product name");
-            Assert.fail("Can not get product name");
+            printErrorAndStopTest(e);
         }
-        return "webElementText";
+        return null;
     }
 
     protected void addProductToObraneList(String nameOfSelectedProduct) {

@@ -50,6 +50,16 @@ public class ActionsOnElements {
         }
     }
 
+    protected void clickOnElement(String xPath, String elementName) {
+        try {
+            webDriver.findElement(By.xpath(xPath)).click();
+            logger.info(webDriver.findElement(By.xpath(elementName))
+                    .getAttribute("textContent") + " Element was clicked");
+        } catch (Exception e) {
+            printErrorAndStopTest(e);
+        }
+    }
+
     protected void printErrorAndStopTest(Exception e) {
         logger.error("Can not work with element " + e);
         Assert.fail("Can not work with element " + e);

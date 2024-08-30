@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import pages.filterElements.FilterElements;
 import pages.headerElements.HeaderElements;
 
 import static variables.Variables.breadCrumbXpath;
@@ -17,7 +18,6 @@ public abstract class HomePage extends ActionsOnElements {
 
     @FindBy (xpath = "//*[@title='Домашня сторінка']")
     private WebElement homePageContent;
-
 
     protected abstract String getRelativeUrl();
 
@@ -76,5 +76,10 @@ public abstract class HomePage extends ActionsOnElements {
     public HeaderElements getHeaderElement() {
         return new HeaderElements(webDriver);
     }
+
+//    public FilterElements getFilterElements() {
+//        return new FilterElements(webDriver);
+//    }
+
 }
 

@@ -22,9 +22,4 @@ public class InitPage extends ActionsOnElements{
         };
     }
 
-//    public Spalnya getSpalnyaPage() {
-//        return new Spalnya(webDriver);
-//    }
-
-
 }

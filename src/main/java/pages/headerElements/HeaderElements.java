@@ -4,14 +4,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.ActionsOnElements;
-import pages.MenuElement;
+import pages.filterElements.FilterElements;
 import pages.obrane.Obrane;
-import pages.outlet.Outlet;
 
 public class HeaderElements extends ActionsOnElements {
     @FindBy(xpath = "//span[text()='Меню']")
     private WebElement buttonMenu;
-
 
     @FindBy(xpath = "//span[text()='Обране']")
     private WebElement buttonObrane;
@@ -29,9 +27,9 @@ public class HeaderElements extends ActionsOnElements {
         return new MenuElement(webDriver);
     }
 
-
     public Obrane clickOnObraneMenuButton() {
         clickOnElement(buttonObrane);
         return new Obrane(webDriver);
     }
+
 }

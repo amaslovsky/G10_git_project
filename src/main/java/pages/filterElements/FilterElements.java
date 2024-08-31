@@ -5,9 +5,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.ActionsOnElements;
+import pages.HomePage;
 
-public class FilterElements<SharedPage extends ActionsOnElements> extends ActionsOnElements {
-    private final SharedPage page;
+public class FilterElements extends HomePage {
+//public class FilterElements<SharedPage extends ActionsOnElements> extends ActionsOnElements {
+//    private final SharedPage page;
 
 
     @FindBy(xpath = "//span[text()='Всі фільтри']")
@@ -19,12 +21,27 @@ public class FilterElements<SharedPage extends ActionsOnElements> extends Action
     protected String sortingTypeRadioButton = "//input[contains(@value, '%s')]";
     protected String sortingTypeName = sortingTypeRadioButton + "/ancestor::*[2]//label";
 
-    public FilterElements(WebDriver webDriver, SharedPage page) {
-        super(webDriver);
-        this.page = page;
+    @Override
+    protected String getRelativeUrl() {
+        return null;
     }
 
-    public SharedPage setSortingType(String sortingType) {
+    @Override
+    protected String getRelativeBreadCrumb() {
+        return null;
+    }
+
+    public FilterElements(WebDriver webDriver) {
+        super(webDriver);
+    }
+
+//    public FilterElements(WebDriver webDriver, SharedPage page) {
+//        super(webDriver);
+//        this.page = page;
+//    }
+
+    public FilterElements setSortingType(String sortingType) {
+//    public SharedPage setSortingType(String sortingType) {
         String formattedXPath = String.format(sortingTypeRadioButton, sortingType);
         String displayedName = String.format(sortingTypeName, sortingType);
         switch (sortingType) {
@@ -45,12 +62,18 @@ public class FilterElements<SharedPage extends ActionsOnElements> extends Action
                 Assert.fail("The sorting type '" + sortingType + "' is not valid");
                 break;
         }
-        return page;
+        return this;
+//        return page;
     }
 
-    public SharedPage clickOnAgreeSortingButton() {
+    public FilterElements clickOnAgreeSortingButton() {
         clickOnElement(buttonShowSortingResult);
-        return page;
+        return this;
     }
+
+//    public SharedPage clickOnAgreeSortingButton() {
+//        clickOnElement(buttonShowSortingResult);
+//        return page;
+//    }
 
 }

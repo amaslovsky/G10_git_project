@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.filterElements.FilterElements;
 import pages.headerElements.HeaderElements;
+import pages.spalnya.matraci.bezprushinniMatraci.BezpruzhinniMatraci;
 
 import static variables.Variables.breadCrumbXpath;
 import static variables.Variables.url;
@@ -77,9 +78,9 @@ public abstract class HomePage extends ActionsOnElements {
         return new HeaderElements(webDriver);
     }
 
-//    public FilterElements getFilterElements() {
-//        return new FilterElements(webDriver);
-//    }
+    public BezpruzhinniMatraci getBezpruzhinniMatraciPage() {
+        return new BezpruzhinniMatraci(webDriver);
+    }
 
 }
 

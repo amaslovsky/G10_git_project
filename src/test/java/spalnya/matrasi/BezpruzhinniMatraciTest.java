@@ -41,7 +41,7 @@ public class BezpruzhinniMatraciTest extends InitWebDriver {
                 .getFilterElements()
                 .setSortingType(sortingType)
                 .clickOnAgreeSortingButton()
-//                .getBezpruzhinniMatraciPage()
+                .getBezpruzhinniMatraciPage()
                 .checkIsAscSortingCorrect()
 
         ;

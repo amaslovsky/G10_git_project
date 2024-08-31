@@ -13,11 +13,11 @@ import java.util.ArrayList;
 public class BezpruzhinniMatraci extends Matraci {
 
     ///////////
-    private FilterElements<BezpruzhinniMatraci> filterElements;
-    public BezpruzhinniMatraci(WebDriver webDriver) {
-        super(webDriver);
-        this.filterElements = new FilterElements<>(webDriver, this);
-    }
+//    private FilterElements<BezpruzhinniMatraci> filterElements;
+//    public BezpruzhinniMatraci(WebDriver webDriver) {
+//        super(webDriver);
+//        this.filterElements = new FilterElements<>(webDriver, this);
+//    }
     ///////////
 
     @Override
@@ -36,13 +36,13 @@ public class BezpruzhinniMatraci extends Matraci {
     @FindBy(xpath = "//div[contains(@class, 'd-none')]//button[contains(@class, 'sort')]")
     private WebElement buttonSorting;
 
-//    public BezpruzhinniMatraci(WebDriver webDriver) {
-//        super(webDriver);
-//    }
+    public BezpruzhinniMatraci(WebDriver webDriver) {
+        super(webDriver);
+    }
 
-//    public BezpruzhinniMatraci getBezpruzhinniMatraciPage() {
-//        return new BezpruzhinniMatraci(webDriver);
-//    }
+    public BezpruzhinniMatraci getBezpruzhinniMatraciPage() {
+        return new BezpruzhinniMatraci(webDriver);
+    }
 
     public BezpruzhinniMatraci checkIsRedirectToBezpruzhinniMatraciPage() {
         checkUrl();
@@ -55,13 +55,17 @@ public class BezpruzhinniMatraci extends Matraci {
         return new BezpruzhinniMatraci (webDriver);
     }
 
-    public FilterElements<BezpruzhinniMatraci> getFilterElements() {
-        return new FilterElements<>(webDriver, this);
+    public FilterElements getFilterElements() {
+        return new FilterElements(webDriver);
     }
 
-    public BezpruzhinniMatraci clickOnAgreeSortingButton() {
-        return filterElements.clickOnAgreeSortingButton();
-    }
+//    public FilterElements<BezpruzhinniMatraci> getFilterElements() {
+//        return new FilterElements<>(webDriver, this);
+//    }
+
+//    public BezpruzhinniMatraci clickOnAgreeSortingButton() {
+//        return filterElements.clickOnAgreeSortingButton();
+//    }
 
     public void checkIsAscSortingCorrect() {
         ArrayList<WebElement> products = getWebElements("//div[contains(@class, 'product-container')]");

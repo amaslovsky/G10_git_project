@@ -13,6 +13,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.List;
 
 import static variables.Variables.listNamesSelectedProducts;
 
@@ -106,6 +107,34 @@ public class ActionsOnElements {
         } catch (Exception e) {
             logger.info(elementName + " Element is not displayed");
             return false;
+        }
+    }
+
+    protected boolean isElementPresentInArray(WebElement element, String elementXPath) {
+//        WebDriverWait waitZeroSeconds = new WebDriverWait(webDriver, Duration.ofSeconds(0));
+//        boolean isPresent;
+//        try { waitZeroSeconds.until(ExpectedConditions.visibilityOf(element.findElement(By.xpath(elementXPath))));
+//            isPresent = true;
+//        } catch (Exception e) {
+//            isPresent = false;
+//        }
+//        return isPresent;
+
+//        try {
+//            List<WebElement> foundElements = element.findElements(By.xpath(elementXPath));
+//            return !foundElements.isEmpty();
+//        }catch (Exception e) {
+//            return false;
+//        }
+
+        Duration originalWait = webDriver.manage().timeouts().getImplicitWaitTimeout();
+        try {
+            webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(0));
+            return !element.findElements(By.xpath(elementXPath)).isEmpty();
+        } catch (Exception e) {
+            return false;
+        } finally {
+            webDriver.manage().timeouts().implicitlyWait(originalWait);
         }
     }
 
@@ -203,6 +232,19 @@ public class ActionsOnElements {
         logger.info(numberOfSelectedElements + " elements are selected from "
                 + numberOfDisplayedElements + " elements on page");
         return numberOfSelectedElements;
+    }
+
+    public void setCheckBoxON(WebElement checkbox, WebElement checkboxName) {
+        if (!isCheckBoxSelected(checkbox)) {
+            clickOnElement(checkbox);
+            logger.info(getElementName(checkboxName) + " checkbox set to 'ON' status");
+        } else {
+            logger.info(getElementName(checkboxName) + " checkbox is already in 'ON' status");
+        }
+    }
+
+    public boolean isCheckBoxSelected(WebElement checkbox) {
+        return checkbox.isSelected();
     }
 
 

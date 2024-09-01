@@ -1,5 +1,6 @@
 package pages.spalnya.matraci.bezprushinniMatraci;
 
+import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -9,6 +10,7 @@ import pages.filterElements.FilterElements;
 import pages.spalnya.matraci.Matraci;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BezpruzhinniMatraci extends Matraci {
 
@@ -33,8 +35,21 @@ public class BezpruzhinniMatraci extends Matraci {
 //    @FindBy(xpath = "(//div[contains(@class, 'product-list')]//div[contains(@class, 'product-container')]//a)[2]")
 //    private WebElement firstMatrac;
 
+    private String productsSection = "//div[contains(@class, 'product-container')]";
+    private String elementName = ".//span[contains(@class, 'name')]";
+    private String labelAlwaysLowPrice = ".//div[contains(@class, 'edlp')]";
+
     @FindBy(xpath = "//div[contains(@class, 'd-none')]//button[contains(@class, 'sort')]")
     private WebElement buttonSorting;
+
+    @FindBy(xpath = "//div[contains(@class, 'd-none')]//button[contains(@class, 'fit')]")
+    private WebElement buttonAllFilters;
+
+//    @FindBy(xpath = ".//div[contains(@class,'edlp')]")
+//    private WebElement labelAlwaysLowPrice;
+//
+//    @FindBy(xpath = ".//span[contains(@class,'name')]")
+//    private WebElement elementName;
 
     public BezpruzhinniMatraci(WebDriver webDriver) {
         super(webDriver);
@@ -50,9 +65,14 @@ public class BezpruzhinniMatraci extends Matraci {
         return this;
     }
 
-    public BezpruzhinniMatraci clickOnFiltersButton() {
+    public BezpruzhinniMatraci clickOnSortingButton() {
         clickOnElement(buttonSorting);
         return new BezpruzhinniMatraci (webDriver);
+    }
+
+    public BezpruzhinniMatraci clickOnAllFiltersButton() {
+        clickOnElement(buttonAllFilters);
+        return new BezpruzhinniMatraci(webDriver);
     }
 
     public FilterElements getFilterElements() {
@@ -68,7 +88,7 @@ public class BezpruzhinniMatraci extends Matraci {
 //    }
 
     public void checkIsAscSortingCorrect() {
-        ArrayList<WebElement> products = getWebElements("//div[contains(@class, 'product-container')]");
+        ArrayList<WebElement> products = getWebElements(productsSection);
         for (int i = 0; i < products.size() - 1; i++) {
             int productPrice1 = Integer.valueOf(products.get(i)
                     .findElement(By.xpath(".//span[contains(@class, 'price-value')]"))
@@ -82,4 +102,22 @@ public class BezpruzhinniMatraci extends Matraci {
         logger.info("Products are sorted correctly");
     }
 
+
+    public void checkOnlyAlwaysLowPriceProductsDisplayed() {
+        SoftAssertions softAssertions = new SoftAssertions();
+        ArrayList<WebElement> products = getWebElements(productsSection);
+        for (WebElement product : products) {
+            String productName = getElementName(product.findElement(By.xpath(elementName)));
+            boolean isAlwaysLowPricePresentInProduct = isElementPresentInArray(product, labelAlwaysLowPrice);
+//            if (isAlwaysLowPricePresentInProduct) {
+//                System.out.println(productName+ " " + isAlwaysLowPricePresentInProduct + " " + getElementName(product.findElement(By.xpath(labelAlwaysLowPrice))));
+//            } else {System.out.println(productName+ " " + isAlwaysLowPricePresentInProduct);
+//            }
+            softAssertions.assertThat(isAlwaysLowPricePresentInProduct)
+                    .as(productName + " Element is not marked as 'ЗАВЖДИ НИЗЬКА ЦІНА'")
+                    .isTrue();
+        }
+        softAssertions.assertAll();
+        logger.info("Products are marked 'ЗАВЖДИ НИЗЬКА ЦІНА' correctly");
+    }
 }

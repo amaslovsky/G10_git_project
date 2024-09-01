@@ -5,8 +5,8 @@ import initWebdriver.InitWebDriver;
 
 public class BezpruzhinniMatraciTest extends InitWebDriver {
 
-    @Test
-    public void reachBezprMatrasUsingPageElements() {
+//    @Test
+//    public void reachBezprMatrasUsingPageElements() {
 //        initPage
 //                .getHomePage()
 //                .openHomePage()
@@ -18,14 +18,12 @@ public class BezpruzhinniMatraciTest extends InitWebDriver {
 //                .checkIsRedirectToBezpruzhinniMatraciPage()
 //                .selectFirstMatrac()
 //                .checkIsRedirectToSelectedBezpruzhinniMatraciPage();
-
-    }
+//
+//    }
 
     @Test
     public void ascSortingBezprMatras() {
         String sortingType = "asc"; // radio-button variants: asc, desc, popular, default (means relevant)
-//        String tmp = "11000 грн.";
-//        System.out.println(tmp.substring(0, tmp.length() - 5));
         initPage
                 .getHomePage()
                 .openHomePage()
@@ -37,14 +35,35 @@ public class BezpruzhinniMatraciTest extends InitWebDriver {
                 .clickOnMatraciMenuButton()
                 .clickOnBezpruzhinniMatraciMenuButton()
                 .checkIsRedirectToBezpruzhinniMatraciPage()
-                .clickOnFiltersButton()
+                .clickOnSortingButton()
                 .getFilterElements()
                 .setSortingType(sortingType)
                 .clickOnAgreeSortingButton()
                 .getBezpruzhinniMatraciPage()
-                .checkIsAscSortingCorrect()
-
-        ;
-
+                .checkIsAscSortingCorrect();
     }
+
+    @Test
+    public void alwaysLowPriceFilterBezprMatras() {
+        initPage
+                .getHomePage()
+                .openHomePage()
+                .checkIsRedirectOnHomePage()
+                .getHeaderElement()
+                .clickOnMenuButton()
+                .getMenuElement()
+                .clickOnSlapnyaMenuButton()
+                .clickOnMatraciMenuButton()
+                .clickOnBezpruzhinniMatraciMenuButton()
+                .checkIsRedirectToBezpruzhinniMatraciPage()
+                .clickOnAllFiltersButton()
+                .getFilterElements()
+                .clickOnAlwaysLowPriceAccordion()
+                .setAlwaysLowPriceCheckBoxON()
+                .clickOnAgreeSortingButton()
+                .getBezpruzhinniMatraciPage()
+                .checkOnlyAlwaysLowPriceProductsDisplayed()
+        ;
+    }
+
 }

@@ -4,7 +4,6 @@ import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import pages.ActionsOnElements;
 import pages.HomePage;
 
 public class FilterElements extends HomePage {
@@ -17,6 +16,15 @@ public class FilterElements extends HomePage {
 
     @FindBy(xpath = "//button[contains(text(), 'Показати')]")
     private WebElement buttonShowSortingResult;
+
+    @FindBy(xpath = "//button//span[text()='ЗАВЖДИ НИЗЬКА ЦІНА']")
+    private WebElement buttonAlwaysLowPrice;
+
+    @FindBy(xpath = "//label[text()='ЗАВЖДИ НИЗЬКА ЦІНА']//..//input")
+    private WebElement alwaysLowPriceCheckBox;
+
+    @FindBy(xpath = "//label[text()='ЗАВЖДИ НИЗЬКА ЦІНА']")
+    private WebElement alwaysLowPriceCheckBoxName;
 
     protected String sortingTypeRadioButton = "//input[contains(@value, '%s')]";
     protected String sortingTypeName = sortingTypeRadioButton + "/ancestor::*[2]//label";
@@ -66,10 +74,21 @@ public class FilterElements extends HomePage {
 //        return page;
     }
 
+    public FilterElements clickOnAlwaysLowPriceAccordion() {
+        clickOnElement(buttonAlwaysLowPrice);
+        return this;
+    }
+
     public FilterElements clickOnAgreeSortingButton() {
         clickOnElement(buttonShowSortingResult);
         return this;
     }
+
+    public FilterElements setAlwaysLowPriceCheckBoxON() {
+        setCheckBoxON(alwaysLowPriceCheckBox, alwaysLowPriceCheckBoxName);
+        return this;
+    }
+
 
 //    public SharedPage clickOnAgreeSortingButton() {
 //        clickOnElement(buttonShowSortingResult);

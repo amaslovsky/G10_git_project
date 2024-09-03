@@ -1,5 +1,3 @@
-package spalnya.matrasi;
-
 import org.junit.Test;
 import initWebdriver.InitWebDriver;
 

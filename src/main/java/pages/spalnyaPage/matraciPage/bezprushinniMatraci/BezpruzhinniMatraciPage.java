@@ -1,4 +1,4 @@
-package pages.spalnya.matraci.bezprushinniMatraci;
+package pages.spalnyaPage.matraciPage.bezprushinniMatraci;
 
 import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
@@ -7,12 +7,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.filterElements.FilterElements;
-import pages.spalnya.matraci.Matraci;
+import pages.spalnyaPage.matraciPage.MatraciPage;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class BezpruzhinniMatraci extends Matraci {
+public class BezpruzhinniMatraciPage extends MatraciPage {
 
     ///////////
 //    private FilterElements<BezpruzhinniMatraci> filterElements;
@@ -51,28 +50,28 @@ public class BezpruzhinniMatraci extends Matraci {
 //    @FindBy(xpath = ".//span[contains(@class,'name')]")
 //    private WebElement elementName;
 
-    public BezpruzhinniMatraci(WebDriver webDriver) {
+    public BezpruzhinniMatraciPage(WebDriver webDriver) {
         super(webDriver);
     }
 
-    public BezpruzhinniMatraci getBezpruzhinniMatraciPage() {
-        return new BezpruzhinniMatraci(webDriver);
+    public BezpruzhinniMatraciPage getBezpruzhinniMatraciPage() {
+        return new BezpruzhinniMatraciPage(webDriver);
     }
 
-    public BezpruzhinniMatraci checkIsRedirectToBezpruzhinniMatraciPage() {
+    public BezpruzhinniMatraciPage checkIsRedirectToBezpruzhinniMatraciPage() {
         checkUrl();
         checkBreadCrumb();
         return this;
     }
 
-    public BezpruzhinniMatraci clickOnSortingButton() {
+    public BezpruzhinniMatraciPage clickOnSortingButton() {
         clickOnElement(buttonSorting);
-        return new BezpruzhinniMatraci (webDriver);
+        return new BezpruzhinniMatraciPage(webDriver);
     }
 
-    public BezpruzhinniMatraci clickOnAllFiltersButton() {
+    public BezpruzhinniMatraciPage clickOnAllFiltersButton() {
         clickOnElement(buttonAllFilters);
-        return new BezpruzhinniMatraci(webDriver);
+        return new BezpruzhinniMatraciPage(webDriver);
     }
 
     public FilterElements getFilterElements() {
@@ -109,10 +108,6 @@ public class BezpruzhinniMatraci extends Matraci {
         for (WebElement product : products) {
             String productName = getElementName(product.findElement(By.xpath(elementName)));
             boolean isAlwaysLowPricePresentInProduct = isElementPresentInArray(product, labelAlwaysLowPrice);
-//            if (isAlwaysLowPricePresentInProduct) {
-//                System.out.println(productName+ " " + isAlwaysLowPricePresentInProduct + " " + getElementName(product.findElement(By.xpath(labelAlwaysLowPrice))));
-//            } else {System.out.println(productName+ " " + isAlwaysLowPricePresentInProduct);
-//            }
             softAssertions.assertThat(isAlwaysLowPricePresentInProduct)
                     .as(productName + " Element is not marked as 'ЗАВЖДИ НИЗЬКА ЦІНА'")
                     .isTrue();

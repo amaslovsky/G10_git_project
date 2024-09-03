@@ -3,6 +3,7 @@ package pages;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -13,7 +14,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.ArrayList;
-import java.util.List;
 
 import static variables.Variables.listNamesSelectedProducts;
 
@@ -21,29 +21,52 @@ public class ActionsOnElements {
 
     Actions actions;
     WebDriverWait webDriverWait15;
+    WebDriverWait webDriverWait1sec;
 
-    protected WebDriver webDriver;
-    protected Logger logger = Logger.getLogger(getClass());
-    protected String allProducts = "(//div[contains(@class, 'product-container')])";
-    protected String productXpath = allProducts + "[%s]";
-    protected String nameProductXpath = productXpath + "//span[contains(@class, 'name')]";
-    protected String obraneButtonProductXpath = productXpath + "//button";
+    public WebDriver webDriver;
+    public Logger logger = Logger.getLogger(getClass());
+    public String allProducts = "(//div[contains(@class, 'product-container')])";
+    public String productXpath = allProducts + "[%s]";
+    public String nameProductXpath = productXpath + "//span[contains(@class, 'name')]";
+    public String obraneButtonProductXpath = productXpath + "//button";
+    public String spinnerXpath = "//div[@class='jysk-spinner']";
+
+    @FindBy(xpath = "//span[contains(@class, 'name')]")
+    protected WebElement productNameElement;
+
+    @FindBy(xpath = "//span[contains(@class, 'value')]")
+    protected WebElement productPriceElement;
 
     @FindBy(xpath = "//span[text()='Обране']")
-    private WebElement anchor4topOfPage;
+    protected WebElement anchor4topOfPage;
+
+    @FindBy(xpath = "//button[contains(@class, 'basket')]")
+    protected WebElement addToBasketButton;
 
     public ActionsOnElements(WebDriver webDriver) {
         this.webDriver = webDriver;
         PageFactory.initElements(webDriver, this);
         this.actions = new Actions(webDriver);
         this.webDriverWait15 = new WebDriverWait(webDriver, Duration.ofSeconds(15));
+        this.webDriverWait1sec = new WebDriverWait(webDriver, Duration.ofSeconds(1));
     }
 
     protected void clickOnElement(WebElement webElement) {
         try {
-            webDriverWait15.until(ExpectedConditions.elementToBeClickable((webElement)));
+            webDriverWait1sec.until(ExpectedConditions.elementToBeClickable((webElement)));
             actions.moveToElement(webElement).perform();
             String elementName = getElementName(webElement);
+            webElement.click();
+            logger.info(elementName + " Element was clicked");
+        } catch (Exception e) {
+            printErrorAndStopTest(e);
+        }
+    }
+
+    protected void clickOnElement(WebElement webElement, String elementName) {
+        try {
+            webDriverWait1sec.until(ExpectedConditions.elementToBeClickable((webElement)));
+            actions.moveToElement(webElement).perform();
             webElement.click();
             logger.info(elementName + " Element was clicked");
         } catch (Exception e) {
@@ -247,5 +270,63 @@ public class ActionsOnElements {
         return checkbox.isSelected();
     }
 
+    public void waitUtilSpinnerWorks() {
+        boolean isSpinnerPresent = false;
+        try {
+            webDriverWait1sec.until(ExpectedConditions
+                    .visibilityOfElementLocated(By.xpath(spinnerXpath)));
+            isSpinnerPresent = true;
+            if (isSpinnerPresent) {
+                logger.info("Spinner is displayed");
+                webDriverWait1sec.until(ExpectedConditions
+                        .invisibilityOfElementLocated(By.xpath(spinnerXpath)));
+                logger.info("Spinner is disappeared");
+            }
+        } catch (Exception e) {
+            logger.info("Spinner is not disappeared");
+        }
+    }
+
+    public Double convertStringValueInDouble(String productPrice) {
+//        System.out.println(productPrice);
+//        System.out.println("is there a space: " + productPrice.contains(" "));
+//        System.out.println("replace spaces " + productPrice.indexOf(" "));
+//        System.out.println("replace spaces and ',' and '.' " + productPrice.substring(0, productPrice.indexOf(" ")).replace(",", "."));
+        Double price = null;
+        try {
+            if (productPrice.contains(" ")) {
+                price = Double.parseDouble(productPrice.substring(0, productPrice.indexOf(" ")).replace(",", "."));
+            } else {
+                price = Double.parseDouble(productPrice.replace(",", "."));
+            }
+            return price;
+        } catch (Exception e) {
+            logger.error("Can not work with element " + e);
+            Assert.fail("Can not work with element " + e);
+        }
+        return price;
+    }
+
+    public int convertStringValueInInt(String digit) {
+        int value = 0;
+        try {
+            value = Integer.parseInt(digit);
+            return value;
+        } catch (Exception e) {
+            logger.error("Can not work with element " + e);
+            Assert.fail("Can not work with element " + e);
+        }
+        return value;
+    }
+
+    protected void clearInputFieldAndEnterText(WebElement webElement, String text) {
+        try {
+            webElement.clear();
+            webElement.sendKeys(text, Keys.TAB);
+            logger.info(text + " was inputted into element " + getElementName(webElement));
+        } catch (Exception e) {
+            printErrorAndStopTest(e);
+        }
+    }
 
 }

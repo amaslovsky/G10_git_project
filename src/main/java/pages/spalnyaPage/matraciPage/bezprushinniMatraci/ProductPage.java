@@ -1,8 +1,8 @@
-package pages.spalnya.matraci.bezprushinniMatraci;
+package pages.spalnyaPage.matraciPage.bezprushinniMatraci;
 
 import org.openqa.selenium.WebDriver;
 
-public class ProductPage extends BezpruzhinniMatraci {
+public class ProductPage extends BezpruzhinniMatraciPage {
     public ProductPage(WebDriver webDriver) {
         super(webDriver);
     }

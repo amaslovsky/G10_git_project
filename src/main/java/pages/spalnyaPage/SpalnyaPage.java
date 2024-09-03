@@ -1,13 +1,9 @@
-package pages.spalnya;
+package pages.spalnyaPage;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import pages.HomePage;
-import pages.spalnya.matraci.Matraci;
 
-public class Spalnya extends HomePage {
+public class SpalnyaPage extends HomePage {
 
 
     @Override
@@ -20,7 +16,7 @@ public class Spalnya extends HomePage {
         return "//*[text()='Спальня']";
     }
 
-    public Spalnya(WebDriver webDriver) {
+    public SpalnyaPage(WebDriver webDriver) {
         super(webDriver);
     }
 

@@ -3,7 +3,7 @@ package spalnya.matrasi;
 import org.junit.Test;
 import initWebdriver.InitWebDriver;
 
-public class BezpruzhinniMatraciTest extends InitWebDriver {
+public class BezpruzhinniMatraciTestPage extends InitWebDriver {
 
 //    @Test
 //    public void reachBezprMatrasUsingPageElements() {

@@ -1,7 +1,7 @@
 import initWebdriver.InitWebDriver;
 import org.junit.Test;
 
-public class ObraneTest extends InitWebDriver {
+public class ObranePageTest extends InitWebDriver {
 
     @Test
     public void addProductToObrane() {

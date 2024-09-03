@@ -24,7 +24,9 @@ public class InitWebDriver {
         webDriver.manage().window().maximize();
         webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         logger.info("Browser was opened");
-        initPage = new InitPage(webDriver);
+        if (initPage == null) {
+            initPage = new InitPage(webDriver);
+        }
     }
 
     @After

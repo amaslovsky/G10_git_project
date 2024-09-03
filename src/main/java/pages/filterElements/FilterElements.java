@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import pages.ActionsOnElements;
 import pages.HomePage;
 
 public class FilterElements extends HomePage {

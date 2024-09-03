@@ -4,8 +4,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.ActionsOnElements;
-import pages.outlet.Outlet;
-import pages.spalnya.matraci.bezprushinniMatraci.BezpruzhinniMatraci;
+import pages.outletPage.OutletPage;
+import pages.spalnyaPage.matraciPage.bezprushinniMatraci.BezpruzhinniMatraciPage;
 
 public class MenuElement extends ActionsOnElements {
 
@@ -30,9 +30,9 @@ public class MenuElement extends ActionsOnElements {
 //        return this;
     }
 
-    public Outlet clickOnOutletMenuButton() {
+    public OutletPage clickOnOutletMenuButton() {
         clickOnElement(buttonOutlet);
-        return new Outlet(webDriver);
+        return new OutletPage(webDriver);
     }
 
     public MenuElement clickOnSlapnyaMenuButton() {
@@ -45,9 +45,9 @@ public class MenuElement extends ActionsOnElements {
         return new MenuElement(webDriver);
     }
 
-    public BezpruzhinniMatraci clickOnBezpruzhinniMatraciMenuButton() {
+    public BezpruzhinniMatraciPage clickOnBezpruzhinniMatraciMenuButton() {
         clickOnElement(buttonBezpruzhinniMatraci);
-        return new BezpruzhinniMatraci(webDriver);
+        return new BezpruzhinniMatraciPage(webDriver);
     }
 
 

@@ -1,4 +1,4 @@
-package pages.obrane;
+package pages.obranePage;
 
 import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 import static variables.Variables.listNamesSelectedProducts;
 
-public class Obrane extends HomePage {
+public class ObranePage extends HomePage {
     private String productsSection = "//div[contains(@class, 'wishlist-products')]//span[contains(@class, 'name')]";
 
     @FindBy(xpath = "//span[contains(@class, 'count')]")
@@ -27,17 +27,17 @@ public class Obrane extends HomePage {
         return "//*[text()='Обране']";
     }
 
-    public Obrane(WebDriver webDriver) {
+    public ObranePage(WebDriver webDriver) {
         super(webDriver);
     }
 
-    public Obrane checkIsRedirectToObranePage() {
+    public ObranePage checkIsRedirectToObranePage() {
         checkUrl();
         checkBreadCrumb();
         return this;
     }
 
-    public Obrane isDisplayedSelectedProductsOnObranePage() {
+    public ObranePage isDisplayedSelectedProductsOnObranePage() {
         ArrayList<WebElement> products = getWebElements(productsSection);
 
         int obraneNumberInHeart = Integer.valueOf(getElementName(productsInHeartElement));

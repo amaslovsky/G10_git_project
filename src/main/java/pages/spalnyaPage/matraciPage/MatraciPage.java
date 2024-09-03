@@ -1,11 +1,11 @@
-package pages.spalnya.matraci;
+package pages.spalnyaPage.matraciPage;
 
 import org.openqa.selenium.WebDriver;
-import pages.spalnya.Spalnya;
+import pages.spalnyaPage.SpalnyaPage;
 
-public class Matraci extends Spalnya {
+public class MatraciPage extends SpalnyaPage {
 
-    public Matraci(WebDriver webDriver) {
+    public MatraciPage(WebDriver webDriver) {
         super(webDriver);
     }
 

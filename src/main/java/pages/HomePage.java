@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import pages.headerElements.HeaderElements;
 import pages.spalnyaPage.matraciPage.bezprushinniMatraci.BezpruzhinniMatraciPage;
 
@@ -13,11 +14,35 @@ import static variables.Variables.url;
 
 public abstract class HomePage extends ActionsOnElements {
 
+    public String allProducts = "(//div[contains(@class, 'product-container')])";
+    public String productXpath = allProducts + "[%s]";
+    public String nameProductXpath = productXpath + "//span[contains(@class, 'name')]";
+    public String obraneButtonProductXpath = productXpath + "//button";
+    public String spinnerXpath = "//div[@class='jysk-spinner']";
+
     @FindBy (xpath = "//button[contains(@onclick, 'declineAll')]")
-    private WebElement cookieAgreement;
+    protected WebElement cookieAgreement;
 
     @FindBy (xpath = "//*[@title='Домашня сторінка']")
     private WebElement homePageContent;
+
+    @FindBy(xpath = "//span[contains(@class, 'name')]")
+    protected WebElement productNameElement;
+
+    @FindBy(xpath = "//span[contains(@class, 'value')]")
+    protected WebElement productPriceElement;
+
+    @FindBy(xpath = "//span[text()='Обране']")
+    protected WebElement anchor4topOfPage;
+
+    @FindBy(xpath = "//h1//div[contains(@class, 'sub')]")
+    protected WebElement productNameElementOnProductPage;
+
+    @FindBy(xpath = "//input[contains(@class, 'quantity')]")
+    protected WebElement productQuantityInputField;
+
+    @FindBy(xpath = "//button[contains(@class, 'basket')]")
+    protected WebElement addToBasketButton;
 
     protected abstract String getRelativeUrl();
 
@@ -60,8 +85,6 @@ public abstract class HomePage extends ActionsOnElements {
 
     private HomePage closeCookiePopup() {
         clickOnElement(cookieAgreement);
-//        Assert.assertFalse("Cookie popup is not closed",
-//                isElementVisible(cookieAgreement));
         logger.info("Cookie popup was closed");
         webDriver.switchTo().defaultContent();
         return this;
@@ -79,6 +102,36 @@ public abstract class HomePage extends ActionsOnElements {
 
     public BezpruzhinniMatraciPage getBezpruzhinniMatraciPage() {
         return new BezpruzhinniMatraciPage(webDriver);
+    }
+
+    protected void setObraneState(Integer index, String productName) {
+        try {
+            returnToTopOfPage();
+            WebElement webElement = webDriver.findElement
+                    (By.xpath(String.format(productXpath, index)));
+            actions.moveToElement(webElement).perform();
+            webDriverWait15.until(ExpectedConditions.visibilityOf(webElement));
+            webElement = webDriver.findElement
+                    (By.xpath(String.format(obraneButtonProductXpath, index)));
+            setObraneStateON(webElement, productName);
+        } catch (Exception e) {
+            logger.error("Can not work with element " + e);
+            Assert.fail("Can not work with element " + e);
+        }
+    }
+
+    protected void setObraneStateON(WebElement webElement, String productName) {
+        if (webElement.getAttribute("class").contains("added")) {
+            logger.info("'Obrane' state for " + productName + " is already ON");
+        } else {
+            webElement.click();
+            logger.info("'Obrane' state for product " + productName + " is set ON");
+        }
+    }
+
+    public void returnToTopOfPage() {
+        actions.moveToElement(anchor4topOfPage).perform();
+        webDriverWait15.until(ExpectedConditions.visibilityOf(anchor4topOfPage));
     }
 
 }

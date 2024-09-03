@@ -25,23 +25,8 @@ public class ActionsOnElements {
 
     public WebDriver webDriver;
     public Logger logger = Logger.getLogger(getClass());
-    public String allProducts = "(//div[contains(@class, 'product-container')])";
-    public String productXpath = allProducts + "[%s]";
-    public String nameProductXpath = productXpath + "//span[contains(@class, 'name')]";
-    public String obraneButtonProductXpath = productXpath + "//button";
-    public String spinnerXpath = "//div[@class='jysk-spinner']";
 
-    @FindBy(xpath = "//span[contains(@class, 'name')]")
-    protected WebElement productNameElement;
 
-    @FindBy(xpath = "//span[contains(@class, 'value')]")
-    protected WebElement productPriceElement;
-
-    @FindBy(xpath = "//span[text()='Обране']")
-    protected WebElement anchor4topOfPage;
-
-    @FindBy(xpath = "//button[contains(@class, 'basket')]")
-    protected WebElement addToBasketButton;
 
     public ActionsOnElements(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -165,8 +150,8 @@ public class ActionsOnElements {
         return (int) (Math.random() * range) + 1;
     }
 
-    protected ArrayList<Integer> makeArrayOfProducts() {
-        int displayedElementsNumber = getNumberOfDisplayedElements();
+    protected ArrayList<Integer> makeArrayOfProducts(String elementsXpath) {
+        int displayedElementsNumber = getNumberOfDisplayedElements(elementsXpath);
         int selectedElementsNumbers = makeRandomNumberForSelectedElements(displayedElementsNumber);
         ArrayList<Integer> selectedProductsArray = new ArrayList<>();
         for (int i = 0; i < selectedElementsNumbers; i++) {
@@ -180,37 +165,10 @@ public class ActionsOnElements {
         return selectedProductsArray;
     }
 
-    protected void setObraneState(Integer index, String productName) {
-        try {
-            returnToTopOfPage();
-            WebElement webElement = webDriver.findElement
-                    (By.xpath(String.format(productXpath, index)));
-            actions.moveToElement(webElement).perform();
-            webDriverWait15.until(ExpectedConditions.visibilityOf(webElement));
-            webElement = webDriver.findElement
-                    (By.xpath(String.format(obraneButtonProductXpath, index)));
-            setObraneStateON(webElement, productName);
-        } catch (Exception e) {
-            logger.error("Can not work with element " + e);
-            Assert.fail("Can not work with element " + e);
-        }
-    }
 
-    public void returnToTopOfPage() {
-        actions.moveToElement(anchor4topOfPage).perform();
-        webDriverWait15.until(ExpectedConditions.visibilityOf(anchor4topOfPage));
-    }
 
-    protected void setObraneStateON(WebElement webElement, String productName) {
-        if (webElement.getAttribute("class").contains("added")) {
-            logger.info("'Obrane' state for " + productName + " is already ON");
-        } else {
-            webElement.click();
-            logger.info("'Obrane' state for product " + productName + " is set ON");
-        }
-    }
 
-    public String getProductName(Integer index) {
+    public String getProductName(String nameProductXpath, int index) {
         try {
             String webElementText = getElementName(webDriver.findElement
                     (By.xpath(String.format(nameProductXpath, index))));
@@ -233,10 +191,10 @@ public class ActionsOnElements {
 //        logger.info(nameOfSelectedProduct + " is added to list of selected products");
     }
 
-    protected int getNumberOfDisplayedElements() {
+    protected int getNumberOfDisplayedElements(String allProductsXpath) {
         try {
             int elementsNumber = webDriver.findElements
-                    (By.xpath(allProducts)).size();
+                    (By.xpath(allProductsXpath)).size();
             if (elementsNumber !=0) {
                 logger.info(elementsNumber + " elements are displayed");
                 return elementsNumber;
@@ -274,12 +232,12 @@ public class ActionsOnElements {
         boolean isSpinnerPresent = false;
         try {
             webDriverWait1sec.until(ExpectedConditions
-                    .visibilityOfElementLocated(By.xpath(spinnerXpath)));
+                    .visibilityOfElementLocated(By.xpath("//div[@class='jysk-spinner']")));
             isSpinnerPresent = true;
             if (isSpinnerPresent) {
                 logger.info("Spinner is displayed");
                 webDriverWait1sec.until(ExpectedConditions
-                        .invisibilityOfElementLocated(By.xpath(spinnerXpath)));
+                        .invisibilityOfElementLocated(By.xpath("//div[@class='jysk-spinner']")));
                 logger.info("Spinner is disappeared");
             }
         } catch (Exception e) {
@@ -288,10 +246,6 @@ public class ActionsOnElements {
     }
 
     public Double convertStringValueInDouble(String productPrice) {
-//        System.out.println(productPrice);
-//        System.out.println("is there a space: " + productPrice.contains(" "));
-//        System.out.println("replace spaces " + productPrice.indexOf(" "));
-//        System.out.println("replace spaces and ',' and '.' " + productPrice.substring(0, productPrice.indexOf(" ")).replace(",", "."));
         Double price = null;
         try {
             if (productPrice.contains(" ")) {

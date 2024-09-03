@@ -24,14 +24,9 @@ public class ProductPage extends HomePage {
         return null;
     }
 
-    @FindBy(xpath = "//h1//div[contains(@class, 'sub')]")
-    private WebElement productNameElement;
-
-    @FindBy(xpath = "//input[contains(@class, 'quantity')]")
-    private WebElement productQuantityInputField;
 
     public ProductPage openProductPage() {
-        waitUtilSpinnerWorks();
+//        waitUtilSpinnerWorks();
         //TODO: getRelativeUrl() is not implemented
         //TODO: getRelativeBreadCrumb() is not implemented
         logger.info("ProductPage is opened " + webDriver.getCurrentUrl());
@@ -40,7 +35,7 @@ public class ProductPage extends HomePage {
 
 
     public ProductPage checkProductNameAndPriceAreCorrect() {
-        String currentProductName = getElementName(productNameElement);
+        String currentProductName = getElementName(productNameElementOnProductPage);
         Double currentProductPrice = convertStringValueInDouble(getElementName(productPriceElement));
         Assert.assertEquals("Product name is not the same as expected",
                 productName, currentProductName);

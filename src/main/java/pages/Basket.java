@@ -39,6 +39,18 @@ public class Basket extends ActionsOnElements {
     @FindBy(xpath = "//a[@data-test]")
     private WebElement buttonContinue;
 
+    @FindBy(xpath = "//span[contains(@class, 'name')]")
+    protected WebElement productNameElement;
+
+    @FindBy(xpath = "//span[contains(@class, 'value')]")
+    protected WebElement productPriceElement;
+
+    @FindBy(xpath = "//span[text()='Обране']")
+    protected WebElement anchor4topOfPage;
+
+    @FindBy(xpath = "//button[contains(@class, 'basket')]")
+    protected WebElement addToBasketButton;
+
 
 
 
@@ -91,7 +103,7 @@ public class Basket extends ActionsOnElements {
 
     public Basket openBasketPage() {
         clickOnElement(buttonContinue);
-        waitUtilSpinnerWorks();
+//        waitUtilSpinnerWorks();
         return new Basket(webDriver);
     }
 }

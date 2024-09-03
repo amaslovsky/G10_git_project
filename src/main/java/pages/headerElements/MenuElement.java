@@ -27,7 +27,6 @@ public class MenuElement extends ActionsOnElements {
 
     public MenuElement getMenuElement() {
         return new MenuElement(webDriver);
-//        return this;
     }
 
     public OutletPage clickOnOutletMenuButton() {

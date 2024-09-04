@@ -3,7 +3,6 @@ package utilities;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.openqa.selenium.WebElement;
-import pages.ActionsOnElements;
 
 import static variables.Variables.listNamesSelectedProducts;
 

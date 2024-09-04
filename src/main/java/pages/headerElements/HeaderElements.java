@@ -39,8 +39,6 @@ public class HeaderElements extends ActionsOnElements {
         return new ObranePage(webDriver);
     }
 
-
-
     public Basket clickOnBasketButton() {
         clickOnElement(buttonBasket, "Basket button");
         return new Basket(webDriver);

@@ -38,7 +38,7 @@ public class ActionsOnElements {
 
     public void clickOnElement(WebElement webElement) {
         try {
-            webDriverWait1sec.until(ExpectedConditions.elementToBeClickable((webElement)));
+            webDriverWait1sec.until(ExpectedConditions.elementToBeClickable(webElement));
             actions.moveToElement(webElement).perform();
             String elementName = getElementName(webElement);
             webElement.click();
@@ -48,7 +48,7 @@ public class ActionsOnElements {
         }
     }
 
-    protected void clickOnElement(WebElement webElement, String elementName) {
+    public void clickOnElement(WebElement webElement, String elementName) {
         try {
             webDriverWait1sec.until(ExpectedConditions.elementToBeClickable((webElement)));
             actions.moveToElement(webElement).perform();
@@ -59,7 +59,7 @@ public class ActionsOnElements {
         }
     }
 
-    protected void clickOnElement(String xPath, String elementName) {
+    public void clickOnElement(String xPath, String elementName) {
         try {
             webDriver.findElement(By.xpath(xPath)).click();
             logger.info(webDriver.findElement(By.xpath(elementName))
@@ -148,13 +148,12 @@ public class ActionsOnElements {
     public void waitUtilSpinnerWorks() {
         boolean isSpinnerPresent;
         try {
-            webDriverWait05sec.until(ExpectedConditions
-                    .visibilityOfElementLocated(By.xpath(spinnerXpath)));
-            isSpinnerPresent = true;
+//            webDriverWait05sec.until(spinnerXpath.isEnabled());
+            isSpinnerPresent = spinnerXpath.isEnabled();
             logger.info("Spinner is appeared");
             if (isSpinnerPresent) {
                 webDriverWait05sec.until(ExpectedConditions
-                        .invisibilityOfElementLocated(By.xpath(spinnerXpath)));
+                        .stalenessOf(spinnerXpath));
                 logger.info("Spinner is disappeared");
             }
         } catch (Exception e) {
@@ -164,6 +163,9 @@ public class ActionsOnElements {
 
     protected void clearInputFieldAndEnterText(WebElement webElement, String text) {
         try {
+//            waitUtilSpinnerWorks();
+//            webElement.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+            webDriverWait1sec.until(ExpectedConditions.visibilityOf(webElement));
             webElement.clear();
             webElement.sendKeys(text, Keys.TAB);
             logger.info(text + " was inputted into element " + getElementName(webElement));

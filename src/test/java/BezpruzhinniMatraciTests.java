@@ -1,7 +1,7 @@
 import org.junit.Test;
 import initWebdriver.InitWebDriver;
 
-public class BezpruzhinniMatraciTestPage extends InitWebDriver {
+public class BezpruzhinniMatraciTests extends InitWebDriver {
 
 //    @Test
 //    public void reachBezprMatrasUsingPageElements() {
@@ -20,7 +20,7 @@ public class BezpruzhinniMatraciTestPage extends InitWebDriver {
 //    }
 
     @Test
-    public void ascSortingBezprMatras() {
+    public void ascSortingBezpruzhinniMatraci() {
         String sortingType = "asc"; // radio-button variants: asc, desc, popular, default (means relevant)
         initPage
                 .getHomePage()
@@ -37,12 +37,13 @@ public class BezpruzhinniMatraciTestPage extends InitWebDriver {
                 .getFilterElements()
                 .setSortingType(sortingType)
                 .clickOnAgreeSortingButton()
-                .getBezpruzhinniMatraciPage()
-                .checkIsAscSortingCorrect();
+                .openProductPage()
+                .checkIsAscSortingCorrect()
+        ;
     }
 
     @Test
-    public void alwaysLowPriceFilterBezprMatras() {
+    public void alwaysLowPriceFilterBezpruzhinniMatraci() {
         initPage
                 .getHomePage()
                 .openHomePage()
@@ -59,7 +60,6 @@ public class BezpruzhinniMatraciTestPage extends InitWebDriver {
                 .clickOnAlwaysLowPriceAccordion()
                 .setAlwaysLowPriceCheckBoxON()
                 .clickOnAgreeSortingButton()
-                .getBezpruzhinniMatraciPage()
                 .checkOnlyAlwaysLowPriceProductsDisplayed()
         ;
     }

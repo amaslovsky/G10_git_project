@@ -13,13 +13,16 @@ import static utilities.Utilities.isElementVisible;
 import static variables.Variables.breadCrumbXpath;
 import static variables.Variables.url;
 
-public abstract class HomePage extends ActionsOnElements {
+    abstract public class HomePage extends ActionsOnElements {
 
     public String allProducts = "(//div[contains(@class, 'product-container')])";
     public String productXpath = allProducts + "[%s]";
     public String nameProductXpath = productXpath + "//span[contains(@class, 'name')]";
     public String obraneButtonProductXpath = productXpath + "//button";
-    public static String spinnerXpath = "//div[@class='jysk-spinner']";
+//    public static String spinnerXpath = "//div[@class='jysk-spinner']";
+
+    @FindBy (xpath = "//div[@class='jysk-spinner']")
+    public static WebElement spinnerXpath;
 
     @FindBy (xpath = "//button[contains(@onclick, 'declineAll')]")
     protected WebElement cookieAgreement;

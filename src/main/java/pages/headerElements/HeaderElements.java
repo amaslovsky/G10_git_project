@@ -8,6 +8,8 @@ import pages.ActionsOnElements;
 import pages.Basket;
 import pages.obranePage.ObranePage;
 
+import static utilities.Utilities.convertStringValueInInt;
+import static utilities.Utilities.getElementName;
 import static variables.Variables.productQuantity;
 
 public class HeaderElements extends ActionsOnElements {

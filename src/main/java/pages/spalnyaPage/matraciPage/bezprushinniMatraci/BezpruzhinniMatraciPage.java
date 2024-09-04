@@ -11,6 +11,8 @@ import pages.spalnyaPage.matraciPage.MatraciPage;
 
 import java.util.ArrayList;
 
+import static utilities.Utilities.getElementName;
+
 public class BezpruzhinniMatraciPage extends MatraciPage {
 
     ///////////
@@ -87,7 +89,7 @@ public class BezpruzhinniMatraciPage extends MatraciPage {
 //    }
 
     public void checkIsAscSortingCorrect() {
-        ArrayList<WebElement> products = getWebElements(productsSection);
+        ArrayList<WebElement> products = getWebElementsArrayByXpath(productsSection);
         for (int i = 0; i < products.size() - 1; i++) {
             int productPrice1 = Integer.valueOf(products.get(i)
                     .findElement(By.xpath(".//span[contains(@class, 'price-value')]"))
@@ -104,7 +106,7 @@ public class BezpruzhinniMatraciPage extends MatraciPage {
 
     public void checkOnlyAlwaysLowPriceProductsDisplayed() {
         SoftAssertions softAssertions = new SoftAssertions();
-        ArrayList<WebElement> products = getWebElements(productsSection);
+        ArrayList<WebElement> products = getWebElementsArrayByXpath(productsSection);
         for (WebElement product : products) {
             String productName = getElementName(product.findElement(By.xpath(elementName)));
             boolean isAlwaysLowPricePresentInProduct = isElementPresentInArray(product, labelAlwaysLowPrice);

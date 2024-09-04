@@ -9,6 +9,7 @@ import pages.HomePage;
 
 import java.util.ArrayList;
 
+import static utilities.Utilities.getElementName;
 import static variables.Variables.listNamesSelectedProducts;
 
 public class ObranePage extends HomePage {
@@ -38,7 +39,7 @@ public class ObranePage extends HomePage {
     }
 
     public ObranePage isDisplayedSelectedProductsOnObranePage() {
-        ArrayList<WebElement> products = getWebElements(productsSection);
+        ArrayList<WebElement> products = getWebElementsArrayByXpath(productsSection);
 
         int obraneNumberInHeart = Integer.valueOf(getElementName(productsInHeartElement));
         boolean isPresent = checkProductsFromObraneListPresentOnPage(products, listNamesSelectedProducts);

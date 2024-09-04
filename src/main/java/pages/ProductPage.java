@@ -4,6 +4,9 @@ import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import static utilities.Utilities.convertStringValueInDouble;
+import static utilities.Utilities.getElementName;
 import static variables.Variables.*;
 
 
@@ -26,7 +29,7 @@ public class ProductPage extends HomePage {
 
 
     public ProductPage openProductPage() {
-//        waitUtilSpinnerWorks();
+        //waitUtilSpinnerWorks();
         //TODO: getRelativeUrl() is not implemented
         //TODO: getRelativeBreadCrumb() is not implemented
         logger.info("ProductPage is opened " + webDriver.getCurrentUrl());

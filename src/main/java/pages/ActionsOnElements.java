@@ -7,7 +7,6 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -15,18 +14,18 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.ArrayList;
 
-import static variables.Variables.listNamesSelectedProducts;
+import static pages.HomePage.spinnerXpath;
+import static utilities.Utilities.*;
 
 public class ActionsOnElements {
 
     Actions actions;
     WebDriverWait webDriverWait15;
     WebDriverWait webDriverWait1sec;
+    WebDriverWait webDriverWait05sec;
 
     public WebDriver webDriver;
     public Logger logger = Logger.getLogger(getClass());
-
-
 
     public ActionsOnElements(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -34,9 +33,10 @@ public class ActionsOnElements {
         this.actions = new Actions(webDriver);
         this.webDriverWait15 = new WebDriverWait(webDriver, Duration.ofSeconds(15));
         this.webDriverWait1sec = new WebDriverWait(webDriver, Duration.ofSeconds(1));
+        this.webDriverWait05sec = new WebDriverWait(webDriver, Duration.ofMillis(500));
     }
 
-    protected void clickOnElement(WebElement webElement) {
+    public void clickOnElement(WebElement webElement) {
         try {
             webDriverWait1sec.until(ExpectedConditions.elementToBeClickable((webElement)));
             actions.moveToElement(webElement).perform();
@@ -69,72 +69,12 @@ public class ActionsOnElements {
         }
     }
 
-    protected void printErrorAndStopTest(Exception e) {
-        logger.error("Can not work with element " + e);
-        Assert.fail("Can not work with element " + e);
-    }
-
-    protected String getElementName(WebElement webElement) {
-        String elementName = "";
-        try {
-            return webElement.getAttribute("textContent");
-        } catch (Exception e) {
-            return elementName;
-        }
-    }
-
-    protected ArrayList<WebElement> getWebElements(String webElements) {
+    protected ArrayList<WebElement> getWebElementsArrayByXpath(String webElements) {
         ArrayList<WebElement> elements = new ArrayList<>(webDriver.findElements(By.xpath(webElements)));
         return elements;
     }
 
-    protected boolean isElementVisible(WebElement webElement) {
-        try {
-            boolean state = webElement.isDisplayed();
-            if (state) {
-                logger.info(getElementName(webElement) + " Element is displayed");
-            } else {
-                logger.info(getElementName(webElement) + " Element is not displayed");
-            }
-            return state;
-        } catch (Exception e) {
-            logger.info(getElementName(webElement) + " Element is not displayed");
-            return false;
-        }
-    }
-
-    protected boolean isElementVisible(WebElement webElement, String elementName) {
-        try {
-            boolean state = webElement.isDisplayed();
-            if (state) {
-                logger.info(elementName + " Element is displayed");
-            } else {
-                logger.info(elementName + " Element is not displayed");
-            }
-            return state;
-        } catch (Exception e) {
-            logger.info(elementName + " Element is not displayed");
-            return false;
-        }
-    }
-
     protected boolean isElementPresentInArray(WebElement element, String elementXPath) {
-//        WebDriverWait waitZeroSeconds = new WebDriverWait(webDriver, Duration.ofSeconds(0));
-//        boolean isPresent;
-//        try { waitZeroSeconds.until(ExpectedConditions.visibilityOf(element.findElement(By.xpath(elementXPath))));
-//            isPresent = true;
-//        } catch (Exception e) {
-//            isPresent = false;
-//        }
-//        return isPresent;
-
-//        try {
-//            List<WebElement> foundElements = element.findElements(By.xpath(elementXPath));
-//            return !foundElements.isEmpty();
-//        }catch (Exception e) {
-//            return false;
-//        }
-
         Duration originalWait = webDriver.manage().timeouts().getImplicitWaitTimeout();
         try {
             webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(0));
@@ -144,10 +84,6 @@ public class ActionsOnElements {
         } finally {
             webDriver.manage().timeouts().implicitlyWait(originalWait);
         }
-    }
-
-    protected int getRandomInt(Integer range) {
-        return (int) (Math.random() * range) + 1;
     }
 
     protected ArrayList<Integer> makeArrayOfProducts(String elementsXpath) {
@@ -164,9 +100,6 @@ public class ActionsOnElements {
         }
         return selectedProductsArray;
     }
-
-
-
 
     public String getProductName(String nameProductXpath, int index) {
         try {
@@ -186,11 +119,6 @@ public class ActionsOnElements {
         return null;
     }
 
-    protected void addProductToObraneList(String nameOfSelectedProduct) {
-        listNamesSelectedProducts.add(nameOfSelectedProduct);
-//        logger.info(nameOfSelectedProduct + " is added to list of selected products");
-    }
-
     protected int getNumberOfDisplayedElements(String allProductsXpath) {
         try {
             int elementsNumber = webDriver.findElements
@@ -208,13 +136,6 @@ public class ActionsOnElements {
         return 0;
     }
 
-    protected int makeRandomNumberForSelectedElements(int numberOfDisplayedElements) {
-        int numberOfSelectedElements = (int) ((Math.random() * numberOfDisplayedElements) + 1);
-        logger.info(numberOfSelectedElements + " elements are selected from "
-                + numberOfDisplayedElements + " elements on page");
-        return numberOfSelectedElements;
-    }
-
     public void setCheckBoxON(WebElement checkbox, WebElement checkboxName) {
         if (!isCheckBoxSelected(checkbox)) {
             clickOnElement(checkbox);
@@ -224,53 +145,21 @@ public class ActionsOnElements {
         }
     }
 
-    public boolean isCheckBoxSelected(WebElement checkbox) {
-        return checkbox.isSelected();
-    }
-
     public void waitUtilSpinnerWorks() {
-        boolean isSpinnerPresent = false;
+        boolean isSpinnerPresent;
         try {
-            webDriverWait1sec.until(ExpectedConditions
-                    .visibilityOfElementLocated(By.xpath("//div[@class='jysk-spinner']")));
+            webDriverWait05sec.until(ExpectedConditions
+                    .visibilityOfElementLocated(By.xpath(spinnerXpath)));
             isSpinnerPresent = true;
+            logger.info("Spinner is appeared");
             if (isSpinnerPresent) {
-                logger.info("Spinner is displayed");
-                webDriverWait1sec.until(ExpectedConditions
-                        .invisibilityOfElementLocated(By.xpath("//div[@class='jysk-spinner']")));
+                webDriverWait05sec.until(ExpectedConditions
+                        .invisibilityOfElementLocated(By.xpath(spinnerXpath)));
                 logger.info("Spinner is disappeared");
             }
         } catch (Exception e) {
-            logger.info("Spinner is not disappeared");
+            logger.info("Spinner is not displayed");
         }
-    }
-
-    public Double convertStringValueInDouble(String productPrice) {
-        Double price = null;
-        try {
-            if (productPrice.contains(" ")) {
-                price = Double.parseDouble(productPrice.substring(0, productPrice.indexOf(" ")).replace(",", "."));
-            } else {
-                price = Double.parseDouble(productPrice.replace(",", "."));
-            }
-            return price;
-        } catch (Exception e) {
-            logger.error("Can not work with element " + e);
-            Assert.fail("Can not work with element " + e);
-        }
-        return price;
-    }
-
-    public int convertStringValueInInt(String digit) {
-        int value = 0;
-        try {
-            value = Integer.parseInt(digit);
-            return value;
-        } catch (Exception e) {
-            logger.error("Can not work with element " + e);
-            Assert.fail("Can not work with element " + e);
-        }
-        return value;
     }
 
     protected void clearInputFieldAndEnterText(WebElement webElement, String text) {

@@ -1,18 +1,13 @@
 package pages.outletPage;
 
-import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.HomePage;
 import pages.ProductPage;
 
-import java.time.Duration;
 import java.util.ArrayList;
 
+import static utilities.Utilities.*;
 import static variables.Variables.*;
 
 public class OutletPage extends HomePage {
@@ -49,7 +44,7 @@ public class OutletPage extends HomePage {
     }
 
     public OutletPage getPropertiesFirstProduct() {
-        ArrayList<WebElement> elements = getWebElements(allProducts);
+        ArrayList<WebElement> elements = getWebElementsArrayByXpath(allProducts);
         productName = getElementName(productNameElement);
         productPrice = convertStringValueInDouble(getElementName(productPriceElement));
         return this;

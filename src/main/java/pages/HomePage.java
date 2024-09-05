@@ -27,7 +27,7 @@ import static variables.Variables.url;
     @FindBy (xpath = "//button[contains(@onclick, 'declineAll')]")
     protected WebElement cookieAgreement;
 
-    @FindBy (xpath = "//*[@title='Домашня сторінка']")
+    @FindBy (xpath = "//div[@class='logo-wrapper']")
     private WebElement homePageContent;
 
     @FindBy(xpath = "//span[contains(@class, 'name')]")
@@ -36,7 +36,7 @@ import static variables.Variables.url;
     @FindBy(xpath = "//span[contains(@class, 'value')]")
     protected WebElement productPriceElement;
 
-    @FindBy(xpath = "//span[text()='Обране']")
+    @FindBy(xpath = "//*[@id='wishlist-link']")
     protected WebElement anchor4topOfPage;
 
     @FindBy(xpath = "//h1//div[contains(@class, 'sub')]")

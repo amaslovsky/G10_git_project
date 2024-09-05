@@ -35,8 +35,7 @@ public class BasketTests extends InitWebDriver {
                 .checkProductAmountAndPriceInBasketPopup()
                 .openBasketPage()
                 .changeProductNumberInBasketPopup(numberOfProducts)
-                .checkProductAmountAndPriceInBasketPopup()
-        ;
+                .checkProductAmountAndPriceInBasketPopup();
     }
 
 

@@ -13,10 +13,10 @@ import static utilities.Utilities.getElementName;
 import static variables.Variables.productQuantity;
 
 public class HeaderElements extends ActionsOnElements {
-    @FindBy(xpath = "//span[text()='Меню']")
+    @FindBy(xpath = "//a[contains(@class,'megamenu')]/span")
     private WebElement buttonMenu;
 
-    @FindBy(xpath = "//span[text()='Обране']")
+    @FindBy(xpath = "//*[@id='wishlist-link']")
     private WebElement buttonObrane;
 
     @FindBy(xpath = "//span[contains(@class, 'minibasket')]")

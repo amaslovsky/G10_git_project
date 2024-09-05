@@ -25,7 +25,7 @@ public class ObranePage extends HomePage {
 
     @Override
     protected String getRelativeBreadCrumb() {
-        return "//*[text()='Обране']";
+        return "//ul[contains(@class,'breadcrumb')]/li[last()]";
     }
 
     public ObranePage(WebDriver webDriver) {

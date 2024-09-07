@@ -2,7 +2,10 @@ package utilities;
 
 import org.apache.log4j.Logger;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+
+import java.util.ArrayList;
 
 import static variables.Variables.listNamesSelectedProducts;
 
@@ -99,5 +102,30 @@ public class Utilities {
     public static void printErrorAndStopTest(Exception e) {
         logger.error("Can not work with element " + e);
         Assert.fail("Can not work with element " + e);
+    }
+
+    public static void compareElementsPrices(ArrayList<WebElement> products, String sortingType) {
+        for (int i = 0; i < products.size() - 1; i++) {
+            int productPrice1 = Integer.valueOf(products.get(i)
+                    .findElement(By.xpath(".//span[contains(@class, 'price-value')]"))
+                    .getText().replaceAll("[^\\d]", ""));
+            int productPrice2 = Integer.valueOf(products.get(i + 1).
+                    findElement(By.xpath(".//span[contains(@class, 'price-value')]"))
+                    .getText().replaceAll("[^\\d]", ""));
+            switch (sortingType) {
+                case "asc":
+                    Assert.assertTrue("Product price " + productPrice1 + " is not chipper than " + productPrice2,
+                            productPrice1 <= productPrice2);
+                    break;
+                case "desc":
+                    Assert.assertTrue("Product price " + productPrice1 + " is not more expensive than " + productPrice2,
+                            productPrice1 >= productPrice2);
+                    break;
+                default:
+                    logger.error("The sorting type '" + sortingType + "' is not valid, test is interrupted");
+                    Assert.fail("The sorting type '" + sortingType + "' is not valid");
+                    break;
+            }
+        }
     }
 }

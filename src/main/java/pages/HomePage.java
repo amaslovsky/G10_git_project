@@ -94,7 +94,7 @@ import static variables.Variables.url;
         return this;
     }
 
-    public HomePage checkIsRedirectOnHomePage() {
+    public HomePage checkRedirectingOnHomePage() {
         checkUrl();
         checkBreadCrumb();
         return this;

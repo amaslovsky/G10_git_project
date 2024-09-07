@@ -26,7 +26,7 @@ public class OutletPage extends HomePage {
         super(webDriver);
     }
 
-    public OutletPage checkIsRedirectToOutletPage() {
+    public OutletPage checkRedirectingToOutletPage() {
 //        waitUtilSpinnerWorks();
         checkUrl();
         checkBreadCrumb();

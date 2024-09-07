@@ -11,11 +11,17 @@ public class BasketTests extends InitWebDriver {
                 .openHomePage()
                 .getHeaderElement().clickOnMenuButton()
                 .getMenuElement().clickOnOutletMenuButton()
-                .checkIsRedirectToOutletPage()
+                .checkRedirectingToOutletPage()
                 .getPropertiesFirstProduct()
                 .clickOnFirstProduct();
     }
 
+    /**
+     * test adds the first product from 'Outlet' page to basket,
+     * then verifies correct update of product quantity and total price
+     * in 'Basket' pop-up on product page,
+     * and then on final 'Basket' page
+     */
     @Test
     public void testChangingProductQuantityInBasket() {
         int numberOfProducts = 1;

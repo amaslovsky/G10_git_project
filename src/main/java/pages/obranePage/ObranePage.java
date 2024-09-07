@@ -32,13 +32,13 @@ public class ObranePage extends HomePage {
         super(webDriver);
     }
 
-    public ObranePage checkIsRedirectToObranePage() {
+    public ObranePage checkRedirectingToObranePage() {
         checkUrl();
         checkBreadCrumb();
         return this;
     }
 
-    public ObranePage isDisplayedSelectedProductsOnObranePage() {
+    public ObranePage checkSelectedProductsDisplayedOnObranePage() {
         ArrayList<WebElement> products = getWebElementsArrayByXpath(productsSection);
 
         int obraneNumberInHeart = Integer.valueOf(getElementName(productsInHeartElement));

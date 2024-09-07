@@ -6,15 +6,11 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import pages.filterElements.FilterElements;
 import pages.headerElements.HeaderElements;
-import pages.spalnyaPage.SpalnyaPage;
 
 import java.util.ArrayList;
 
-import static utilities.Utilities.convertStringValueInDouble;
-import static utilities.Utilities.getElementName;
+import static utilities.Utilities.*;
 import static variables.Variables.*;
 
 
@@ -70,19 +66,20 @@ public class ProductPage extends ActionsOnElements {
         return new HeaderElements(webDriver);
     }
 
-    public ProductPage checkIsAscSortingCorrect() {
+    public ProductPage checkSortingCorrect(String sortingType) {
 //        ArrayList<WebElement> products = getWebElementsArrayByXpath(productsSection);
         ArrayList<WebElement> products = getWebElementsArrayByXpath(homePage.allProducts);
-        for (int i = 0; i < products.size() - 1; i++) {
-            int productPrice1 = Integer.valueOf(products.get(i)
-                    .findElement(By.xpath(".//span[contains(@class, 'price-value')]"))
-                    .getText().replaceAll("[^\\d]", ""));
-            int productPrice2 = Integer.valueOf(products.get(i + 1).
-                    findElement(By.xpath(".//span[contains(@class, 'price-value')]"))
-                    .getText().replaceAll("[^\\d]", ""));
-            Assert.assertTrue("Product price " + productPrice1 + " is not chipper than " + productPrice2,
-                    productPrice1 <= productPrice2);
-        }
+//        for (int i = 0; i < products.size() - 1; i++) {
+//            int productPrice1 = Integer.valueOf(products.get(i)
+//                    .findElement(By.xpath(".//span[contains(@class, 'price-value')]"))
+//                    .getText().replaceAll("[^\\d]", ""));
+//            int productPrice2 = Integer.valueOf(products.get(i + 1).
+//                    findElement(By.xpath(".//span[contains(@class, 'price-value')]"))
+//                    .getText().replaceAll("[^\\d]", ""));
+//            Assert.assertTrue("Product price " + productPrice1 + " is not chipper than " + productPrice2,
+//                    productPrice1 <= productPrice2);
+//        }
+        compareElementsPrices(products, sortingType);
         logger.info("Products are sorted correctly");
         return this;
     }

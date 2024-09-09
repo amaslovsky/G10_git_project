@@ -145,6 +145,21 @@ public class ActionsOnElements {
         }
     }
 
+    public void setCheckBoxON(String checkboxXpath, String checkboxName) {
+        WebElement checkbox = null;
+        try {
+            checkbox= webDriver.findElement(By.xpath(checkboxXpath));
+        } catch (Exception e) {
+            logger.info("Can't find check-box");
+        }
+        if (!isCheckBoxSelected(checkbox)) {
+            clickOnElement(checkbox);
+            logger.info(checkboxName + " checkbox set to 'ON' status");
+        } else {
+            logger.info(checkboxName + " checkbox is already in 'ON' status");
+        }
+    }
+
     public void waitUtilSpinnerWorks() {
         boolean isSpinnerPresent;
         try {
@@ -169,6 +184,37 @@ public class ActionsOnElements {
             webElement.clear();
             webElement.sendKeys(text, Keys.TAB);
             logger.info(text + " was inputted into element " + getElementName(webElement));
+        } catch (Exception e) {
+            printErrorAndStopTest(e);
+        }
+    }
+
+    protected void clearInputFieldAndEnterText(String xPath, String text) {
+        try {
+//            waitUtilSpinnerWorks();
+//            webElement.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+            WebElement webElement = webDriver.findElement(By.xpath(xPath));
+
+            webDriverWait1sec.until(ExpectedConditions.visibilityOf(webElement));
+            webElement.clear();
+            webElement.sendKeys(text, Keys.TAB);
+            logger.info(text + " was inputted into element " + getElementName(webElement));
+        } catch (Exception e) {
+            printErrorAndStopTest(e);
+        }
+    }
+
+    protected void clearInputFieldAndEnterTextAndClickAwayFromField(String xPath, String text) {
+        try {
+//            waitUtilSpinnerWorks();
+//            webElement.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+            WebElement webElement = webDriver.findElement(By.xpath(xPath));
+
+            webDriverWait1sec.until(ExpectedConditions.visibilityOf(webElement));
+            webElement.clear();
+            webElement.sendKeys(text);
+            logger.info(text + " was inputted into element " + getElementName(webElement));
+            webElement.findElement(By.xpath("//div[@class='customer-layout']")).click();
         } catch (Exception e) {
             printErrorAndStopTest(e);
         }

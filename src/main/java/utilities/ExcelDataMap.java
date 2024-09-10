@@ -68,8 +68,8 @@ public class ExcelDataMap {
 //        return data;
 //    }
 
-    public Collection<Object[]> excelCollection() {
-        String pathToDataFile = "src/main/resources/invalidRegistrationData.xls";
+    public Collection excelCollection() {
+        String pathToDataFile = "src/main/resources/invalidRegistrationDataComments.xlsx";
 
         List<Object[]> data = new ArrayList<>();
         try (FileInputStream inputStream = new FileInputStream(pathToDataFile);
@@ -106,31 +106,48 @@ public class ExcelDataMap {
                 Row row = sheet.getRow(i);
 
                 if (row != null) {
-                    String email = String.valueOf(row.getCell(0));
-                    String emailConfirm = String.valueOf(row.getCell(1));
-                    String password = String.valueOf(row.getCell(2));
-                    String firstName = String.valueOf(row.getCell(3));
-                    String lastName = String.valueOf(row.getCell(4));
-                    String acceptTermsAndConditions = String.valueOf(row.getCell(5));
-                    String submit = String.valueOf(row.getCell(6));
+//                    String email = String.valueOf(row.getCell(0));
+//                    String emailConfirm = String.valueOf(row.getCell(1));
+//                    String password = String.valueOf(row.getCell(2));
+//                    String firstName = String.valueOf(row.getCell(3));
+//                    String lastName = String.valueOf(row.getCell(4));
+//                    String acceptTermsAndConditions = String.valueOf(row.getCell(5));
+//                    String submit = String.valueOf(row.getCell(6));
+
+//                    String email = row.getCell(0).getCellComment().getString().getString();
+//                    String emailConfirm = row.getCell(1).getCellComment().getString().getString();
+//                    String password = row.getCell(2).getCellComment().getString().getString();
+//                    String firstName = row.getCell(3).getCellComment().getString().getString();
+//                    String lastName = row.getCell(4).getCellComment().getString().getString();
+//                    String acceptTermsAndConditions = row.getCell(5).getCellComment().getString().getString();
+//                    String submit = row.getCell(6).getCellComment().getString().getString();
+
+                    String email = getComment(row.getCell(0));
+                    String emailConfirm = getComment(row.getCell(1));
+                    String password = getComment(row.getCell(2));
+                    String firstName = getComment(row.getCell(3));
+                    String lastName = getComment(row.getCell(4));
+                    String acceptTermsAndConditions = getComment(row.getCell(5));
+                    String submit = getComment(row.getCell(6));
+
 
                     // Collect error messages from comments
-                    Map<String, String> expectedErrors = new HashMap<>();
-                    addCommentIfExists(row.getCell(0), "email", expectedErrors);
-                    addCommentIfExists(row.getCell(1), "emailConfirm", expectedErrors);
-                    addCommentIfExists(row.getCell(2), "password", expectedErrors);
-                    addCommentIfExists(row.getCell(3), "firstName", expectedErrors);
-                    addCommentIfExists(row.getCell(4), "lastName", expectedErrors);
-                    addCommentIfExists(row.getCell(5), "check-box", expectedErrors);
+//                    Map<String, String> expectedErrors = new HashMap<>();
+//                    addCommentIfExists(row.getCell(0), "email", expectedErrors);
+//                    addCommentIfExists(row.getCell(1), "emailConfirm", expectedErrors);
+//                    addCommentIfExists(row.getCell(2), "password", expectedErrors);
+//                    addCommentIfExists(row.getCell(3), "firstName", expectedErrors);
+//                    addCommentIfExists(row.getCell(4), "lastName", expectedErrors);
+//                    addCommentIfExists(row.getCell(5), "check-box", expectedErrors);
                     // Loop through the map and print each key-value pair
-                    System.out.println(expectedErrors.size());
-                    for (Map.Entry<String, String> entry : expectedErrors.entrySet()) {
-                        String field = entry.getKey();
-                        String errorMessage = entry.getValue();
-                        System.out.println("Field: " + field + " - Error Message: " + errorMessage);
-                    }
+//                    System.out.println(expectedErrors.size());
+//                    for (Map.Entry<String, String> entry : expectedErrors.entrySet()) {
+//                        String field = entry.getKey();
+//                        String errorMessage = entry.getValue();
+//                        System.out.println("Field: " + field + " - Error Message: " + errorMessage);
+//                    }
                     data.add(new Object[] {email, emailConfirm, password, firstName, lastName, acceptTermsAndConditions, submit});
-                    data.add(new Object[] {expectedErrors});
+//                    data.add(new Object[] {expectedErrors});
                 }
             }
         } catch (FileNotFoundException e) {
@@ -147,6 +164,15 @@ public class ExcelDataMap {
             String commentText = comment.getString().getString();
             expectedErrors.put(fieldName, commentText);
         }
+    }
+
+    private String getComment(Cell cell) {
+        if (cell != null && cell.getCellComment() != null) {
+            Comment comment = cell.getCellComment();
+            String commentText = comment.getString().getString();
+            return commentText;
+        }
+        return "nothing";
     }
 
 }

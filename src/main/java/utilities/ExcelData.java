@@ -16,10 +16,8 @@ public class ExcelData {
             Workbook workbook = WorkbookFactory.create(inputStream)) {
             Sheet sheet = workbook.getSheet("invalidRegistrationData");
 
-            boolean skipFirstRow = true;
-            int startRow = skipFirstRow ? 1 : 0;  // as a variant - int startRow = 0; if (skipFirstRow) startRow = 1;
-
-            for (int i = startRow; i <= sheet.getLastRowNum(); i++) {
+            int startFromRow = 1;
+            for (int i = startFromRow; i <= sheet.getLastRowNum(); i++) {
                 Row row = sheet.getRow(i);
                 if (row != null) {
                     String email = String.valueOf(row.getCell(0));

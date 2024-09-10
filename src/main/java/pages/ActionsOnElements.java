@@ -189,32 +189,14 @@ public class ActionsOnElements {
         }
     }
 
-    protected void clearInputFieldAndEnterText(String xPath, String text) {
-        try {
-//            waitUtilSpinnerWorks();
-//            webElement.sendKeys(Keys.chord(Keys.CONTROL, "a"));
-            WebElement webElement = webDriver.findElement(By.xpath(xPath));
-
-            webDriverWait1sec.until(ExpectedConditions.visibilityOf(webElement));
-            webElement.clear();
-            webElement.sendKeys(text, Keys.TAB);
-            logger.info(text + " was inputted into element " + getElementName(webElement));
-        } catch (Exception e) {
-            printErrorAndStopTest(e);
-        }
-    }
-
     protected void clearInputFieldAndEnterTextAndClickAwayFromField(String xPath, String text) {
         try {
-//            waitUtilSpinnerWorks();
-//            webElement.sendKeys(Keys.chord(Keys.CONTROL, "a"));
             WebElement webElement = webDriver.findElement(By.xpath(xPath));
-
             webDriverWait1sec.until(ExpectedConditions.visibilityOf(webElement));
             webElement.clear();
             webElement.sendKeys(text);
+            webElement.findElement(By.xpath(xPath+"/../label")).click();
             logger.info(text + " was inputted into element " + getElementName(webElement));
-            webElement.findElement(By.xpath("//div[@class='customer-layout']")).click();
         } catch (Exception e) {
             printErrorAndStopTest(e);
         }

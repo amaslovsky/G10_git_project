@@ -20,21 +20,4 @@ public class SpalnyaPage extends HomePage {
         super(webDriver);
     }
 
-//    public Spalnya checkIsRedirectToSpalnyaPage() {
-//        checkUrl();
-//        isElementVisible(breadCrumbXpath);
-//        return this;
-//    }
-//
-//    public Matraci openMatraciPage() {
-//        WebElement matraci = webDriver.findElement(By.xpath("//span[text()='Матраци']"));
-//        Actions actions = new Actions(webDriver);
-//        actions.moveToElement(matraci).perform();
-//        clickOnElement(matraci);
-////        return new Matraci(webDriver);
-//        return null;
-//    }
-
-
-
 }

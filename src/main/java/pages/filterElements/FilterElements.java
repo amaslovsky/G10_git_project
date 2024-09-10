@@ -10,8 +10,6 @@ import pages.ActionsOnElements;
 import pages.ProductPage;
 
 public class FilterElements {
-//public class FilterElements<SharedPage extends ActionsOnElements> extends ActionsOnElements {
-//    private final SharedPage page;
 
     WebDriver webDriver;
     ActionsOnElements actionsOnElements;

@@ -19,23 +19,4 @@ public class MatraciPage extends SpalnyaPage {
         return "//*[text()='Матраци']";
     }
 
-//    public Matraci(WebDriver webDriver) {
-//        super(webDriver);
-//    }
-//
-//    public Matraci checkIsRedirectToMatraciPage() {
-//        checkUrl();
-//        isElementVisible(breadCrumbXpath);
-//        return this;
-//    }
-//
-//    public BezpruzhinniMatraci openBezpruzhinniMatraciPage() {
-//        WebElement matraci = webDriver.findElement(By.xpath("//span[text()='Безпружинні матраци']"));
-//        Actions actions = new Actions(webDriver);
-//        actions.moveToElement(matraci).perform();
-//        clickOnElement(matraci);
-//        return new BezpruzhinniMatraci(webDriver);
-//    }
-//
-//    public abstract String getProductURL();
 }

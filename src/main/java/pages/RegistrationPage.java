@@ -13,14 +13,12 @@ import java.util.Map;
 public class RegistrationPage extends HomePage {
     @Override
     protected String getRelativeUrl() {
-        //TODO: implement
-        return null;
+        return "/customer/create";
     }
 
     @Override
     protected String getRelativeBreadCrumb() {
-        //TODO: implement
-        return null;
+        return "//ul/li[contains(@class, 'active')]";
     }
 
     public RegistrationPage(WebDriver webDriver) {

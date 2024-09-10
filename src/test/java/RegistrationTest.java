@@ -10,6 +10,12 @@ import java.util.Collection;
 public class RegistrationTest extends InitWebDriver {
     ExcelData excelData = new ExcelData();
 
+    /**
+     * this test verifies displaying of error messages in two scenarios:
+     * 1. while entering data in input fields
+     * 2. after pressing the 'Registration' button
+     * note: test data is extracted from Excel-table
+     */
     @Test
     @Parameters(method = "parametersForInvalidRegistrationTest")
     public void invalidRegistrationTest(String email, String emailConfirm,
@@ -19,7 +25,7 @@ public class RegistrationTest extends InitWebDriver {
         initPage.getHomePage()
                 .openHomePage()
                 .getHeaderElement().clickOnProfileButton().clickOnRegistrationButton()
-                //.checkRedirectingToRegistrationPage()
+                .checkRedirectingToRegistrationPage()
                 .enterRegistrationUserEmail(email)
                 .enterRegistrationConfirmEmail(emailConfirm)
                 .enterRegistrationUserPassword(password)

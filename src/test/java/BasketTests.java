@@ -44,8 +44,4 @@ public class BasketTests extends InitWebDriver {
                 .checkProductAmountAndPriceInBasketPopup();
     }
 
-
-
-
-
 }

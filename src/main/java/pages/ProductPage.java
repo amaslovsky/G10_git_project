@@ -67,18 +67,7 @@ public class ProductPage extends ActionsOnElements {
     }
 
     public ProductPage checkSortingCorrect(String sortingType) {
-//        ArrayList<WebElement> products = getWebElementsArrayByXpath(productsSection);
         ArrayList<WebElement> products = getWebElementsArrayByXpath(homePage.allProducts);
-//        for (int i = 0; i < products.size() - 1; i++) {
-//            int productPrice1 = Integer.valueOf(products.get(i)
-//                    .findElement(By.xpath(".//span[contains(@class, 'price-value')]"))
-//                    .getText().replaceAll("[^\\d]", ""));
-//            int productPrice2 = Integer.valueOf(products.get(i + 1).
-//                    findElement(By.xpath(".//span[contains(@class, 'price-value')]"))
-//                    .getText().replaceAll("[^\\d]", ""));
-//            Assert.assertTrue("Product price " + productPrice1 + " is not chipper than " + productPrice2,
-//                    productPrice1 <= productPrice2);
-//        }
         compareElementsPrices(products, sortingType);
         logger.info("Products are sorted correctly");
         return this;
@@ -86,7 +75,6 @@ public class ProductPage extends ActionsOnElements {
 
     public void checkOnlyAlwaysLowPriceProductsDisplayed() {
         SoftAssertions softAssertions = new SoftAssertions();
-//        ArrayList<WebElement> products = getWebElementsArrayByXpath(productsSection);
         ArrayList<WebElement> products = getWebElementsArrayByXpath(homePage.allProducts);
         for (WebElement product : products) {
             String productName = getElementName(product.findElement(By.xpath(elementName)));

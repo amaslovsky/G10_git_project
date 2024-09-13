@@ -40,4 +40,5 @@ public class RegistrationTest extends InitWebDriver {
         return excelData.excelCollection();
     }
 
+
 }

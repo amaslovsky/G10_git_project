@@ -22,19 +22,24 @@ public class FilterElements {
 
     public Logger logger = Logger.getLogger(FilterElements.class);
 
-    @FindBy(xpath = "//span[text()='Всі фільтри']")
+//    @FindBy(xpath = "//span[text()='Всі фільтри']")
+    @FindBy(xpath = "//div[contains(@class, 'grow')]//p[contains(@class, 'block')]")
     public WebElement buttonFilters;
 
-    @FindBy(xpath = "//button[contains(text(), 'Показати')]")
+//    @FindBy(xpath = "//button[contains(text(), 'Показати')]")
+    @FindBy(xpath = "//div[contains(@class, 'buttons-')]//button[2]")
     public WebElement buttonShowSortingResult;
 
-    @FindBy(xpath = "//button//span[text()='ЗАВЖДИ НИЗЬКА ЦІНА']")
+//    @FindBy(xpath = "//button//span[text()='ЗАВЖДИ НИЗЬКА ЦІНА']")
+    @FindBy(xpath = "//div[@id='f_123']//span")
     public WebElement buttonAlwaysLowPrice;
 
-    @FindBy(xpath = "//label[text()='ЗАВЖДИ НИЗЬКА ЦІНА']//..//input")
+//    @FindBy(xpath = "//label[text()='ЗАВЖДИ НИЗЬКА ЦІНА']//..//input")
+    @FindBy(xpath = "//div[@id='f_123']//input")
     public WebElement alwaysLowPriceCheckBox;
 
-    @FindBy(xpath = "//label[text()='ЗАВЖДИ НИЗЬКА ЦІНА']")
+//    @FindBy(xpath = "//label[text()='ЗАВЖДИ НИЗЬКА ЦІНА']")
+    @FindBy(xpath = "(//div[@id='f_123']//label)[1]")
     public WebElement alwaysLowPriceCheckBoxName;
 
     public String sortingTypeRadioButton = "//input[contains(@value, '%s')]";

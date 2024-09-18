@@ -79,14 +79,10 @@ public class Basket extends ActionsOnElements {
         return new ProductPage(webDriver);
     }
 
-
     public Basket checkProductAmountAndPriceInBasketPopup() {
         Assert.assertEquals("Product amount is not correct",
                 productQuantity, convertStringValueInInt(productQuantityElementOnBasketPopup.getAttribute("value")));
         logger.info("Product amount is correct");
-//        Assert.assertEquals("Product price is not correct",
-//                productPrice, convertStringValueInDouble(getElementName(productPriceElementOnBasketPopup)));
-//        logger.info("Product price is correct");
         Assert.assertEquals("Total amount is not correct",
                 Double.valueOf(productPrice * productQuantity),
                 convertStringValueInDouble(getElementName(productTotalAmountElementOnBasketPopup)));

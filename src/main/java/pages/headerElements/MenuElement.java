@@ -12,13 +12,16 @@ public class MenuElement extends ActionsOnElements {
     @FindBy(xpath = "//span[text()='Outlet']")
     private WebElement buttonOutlet;
 
-    @FindBy(xpath = "//ul//span[text()='Спальня']")
+//    @FindBy(xpath = "//ul//span[text()='Спальня']")
+    @FindBy(xpath = "(//div[contains(@class, 'completed')]//li)[1]")
     private WebElement buttonSpalnya;
 
-    @FindBy(xpath = "//span[text()='Матраци']")
+//    @FindBy(xpath = "//span[text()='Матраци']")
+    @FindBy(xpath = "(//div[contains(@class, '-in')]//li)[2]")
     private WebElement buttonMatraci;
 
-    @FindBy(xpath = "//span[text()='Безпружинні матраци']")
+//    @FindBy(xpath = "//span[text()='Безпружинні матраци']")
+    @FindBy(xpath = "(//div[contains(@class, '-in')])[10]//li[3]")
     private WebElement buttonBezpruzhinniMatraci;
 
     public MenuElement(WebDriver webDriver) {

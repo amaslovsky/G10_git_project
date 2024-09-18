@@ -105,25 +105,4 @@ public class RegistrationPage extends HomePage {
         return this;
     }
 
-    public RegistrationPage checkErrorMessagesByComments(Map<String, String> errorsFromComments) {
-//        String[] errorsArrayInExcel = expectedErrors.split(";\\s*\\r?\\n");
-//
-//        Assert.assertEquals("Number of messages on page is not equal to Excel", errorsArrayInExcel.length, errorListOnPage.size());
-//
-//        ArrayList<String> errorTextInMessagesOnPage = new ArrayList<>();
-//        for (WebElement element : errorListOnPage) {
-//            errorTextInMessagesOnPage.add(element.getText());
-//        }
-//
-//        SoftAssertions softAssertions = new SoftAssertions();
-//        for (int i = 0; i < errorsArrayInExcel.length; i++) {
-//            softAssertions
-//                    .assertThat(errorListOnPage.get(i).getText())
-//                    .as("Message number " + i)
-//                    .isIn(errorsArrayInExcel);
-//        }
-//        softAssertions.assertAll();
-//        return this;
-    return null;
-    }
 }

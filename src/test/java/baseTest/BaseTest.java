@@ -1,4 +1,4 @@
-package initWebdriver;
+package baseTest;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.log4j.Logger;
@@ -11,7 +11,7 @@ import pages.InitPage;
 
 import java.time.Duration;
 
-public class InitWebDriver {
+public class BaseTest {
     private WebDriver webDriver;
     private Logger logger = Logger.getLogger(getClass());
     protected InitPage initPage;

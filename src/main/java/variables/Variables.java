@@ -10,5 +10,6 @@ public class Variables {
     public static String productName;
     public static Double productPrice;
     public static int productQuantity;
+    public static final String SKIP = "skip";
 
 }

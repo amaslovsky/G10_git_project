@@ -9,7 +9,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import pages.headerElements.HeaderElements;
 import pages.spalnyaPage.matraciPage.bezprushinniMatraci.BezpruzhinniMatraciPage;
 
-import static utilities.Utilities.isElementVisible;
 import static variables.Variables.breadCrumbXpath;
 import static variables.Variables.url;
 

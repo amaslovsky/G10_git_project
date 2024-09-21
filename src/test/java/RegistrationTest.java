@@ -1,4 +1,4 @@
-import initWebdriver.InitWebDriver;
+import baseTest.BaseTest;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Test;
@@ -7,7 +7,7 @@ import utilities.ExcelData;
 import java.util.Collection;
 
 @RunWith(JUnitParamsRunner.class)
-public class RegistrationTest extends InitWebDriver {
+public class RegistrationTest extends BaseTest {
     ExcelData excelData = new ExcelData();
 
     /**
@@ -17,7 +17,7 @@ public class RegistrationTest extends InitWebDriver {
      * note: test data is extracted from Excel-table
      */
     @Test
-    @Parameters(method = "parametersForInvalidRegistrationTest")
+    @Parameters(method = "parametersForInvalidRegistrationTestCollectedInExcel")
     public void invalidRegistrationTest(String email, String emailConfirm,
                                         String password, String firstName,
                                         String lastName, String acceptTermsAndConditions,
@@ -36,7 +36,7 @@ public class RegistrationTest extends InitWebDriver {
                 .checkErrorMessages(expectedErrors);
     }
 
-    public Collection parametersForInvalidRegistrationTest() {
+    public Collection parametersForInvalidRegistrationTestCollectedInExcel() {
         return excelData.excelCollection();
     }
 

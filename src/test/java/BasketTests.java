@@ -1,8 +1,8 @@
-import initWebdriver.InitWebDriver;
+import baseTest.BaseTest;
 import org.junit.Before;
 import org.junit.Test;
 
-public class BasketTests extends InitWebDriver {
+public class BasketTests extends BaseTest {
 
     @Before
     public void navigateToProductOnOutletPage() {

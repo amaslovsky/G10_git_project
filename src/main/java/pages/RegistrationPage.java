@@ -8,7 +8,8 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+
+import static variables.Variables.*;
 
 public class RegistrationPage extends HomePage {
     @Override
@@ -66,19 +67,19 @@ public class RegistrationPage extends HomePage {
     }
 
     public RegistrationPage activateAcceptTermsAndConditionsCheckbox(String acceptTermsAndConditions) {
-        if (!acceptTermsAndConditions.equals("skip"))
+        if (!acceptTermsAndConditions.equals(SKIP))
             setCheckBoxON(String.format(inputField, "acceptTermsAndConditions"), "accept Terms And Conditions");
     return this;
     }
 
     public RegistrationPage pressSubmitButton(String submit) {
-        if (!submit.equals("skip"))
+        if (!submit.equals(SKIP))
             clickOnElement(submitButton, "make an Account Button");
     return this;
     }
 
     private void enterText(String forLocator, String text) {
-        if (!"skip".equalsIgnoreCase(text)) {
+        if (!SKIP.equalsIgnoreCase(text)) {
             if ("null".equalsIgnoreCase(text)) text = "";
             clearInputFieldAndEnterTextAndClickAwayFromField(String.format(inputField, forLocator), text);
         }

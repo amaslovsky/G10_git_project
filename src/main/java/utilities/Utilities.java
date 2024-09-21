@@ -21,36 +21,6 @@ public class Utilities {
         }
     }
 
-    public static boolean isElementVisible(WebElement webElement) {
-        try {
-            boolean state = webElement.isDisplayed();
-            if (state) {
-                logger.info(getElementName(webElement) + " Element is displayed");
-            } else {
-                logger.info(getElementName(webElement) + " Element is not displayed");
-            }
-            return state;
-        } catch (Exception e) {
-            logger.info(getElementName(webElement) + " Element is not displayed");
-            return false;
-        }
-    }
-
-    public static boolean isElementVisible(WebElement webElement, String elementName) {
-        try {
-            boolean state = webElement.isDisplayed();
-            if (state) {
-                logger.info(elementName + " Element is displayed");
-            } else {
-                logger.info(elementName + " Element is not displayed");
-            }
-            return state;
-        } catch (Exception e) {
-            logger.info(elementName + " Element is not displayed");
-            return false;
-        }
-    }
-
     public static boolean isCheckBoxSelected(WebElement checkbox) {
         return checkbox.isSelected();
     }
@@ -71,6 +41,11 @@ public class Utilities {
         return numberOfSelectedElements;
     }
 
+    /**
+     * method converts string value of price to double value
+     * besides, method replaces separator marks
+     * and gets rid of spaces
+     */
     public static Double convertStringValueInDouble(String productPrice) {
         Double price = null;
         try {
@@ -81,20 +56,23 @@ public class Utilities {
             }
             return price;
         } catch (Exception e) {
-            logger.error("Can not work with element " + e);
-            Assert.fail("Can not work with element " + e);
+            logger.error("Can not work with value " + e);
+            Assert.fail("Can not work with value " + e);
         }
         return price;
     }
 
+    /**
+     * method converts string value of price to integer value
+     */
     public static int convertStringValueInInt(String digit) {
         int value = 0;
         try {
             value = Integer.parseInt(digit);
             return value;
         } catch (Exception e) {
-            logger.error("Can not work with element " + e);
-            Assert.fail("Can not work with element " + e);
+            logger.error("Can not work with value " + e);
+            Assert.fail("Can not work with value " + e);
         }
         return value;
     }

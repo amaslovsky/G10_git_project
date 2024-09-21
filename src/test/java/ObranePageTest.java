@@ -1,8 +1,8 @@
-import initWebdriver.InitWebDriver;
+import baseTest.BaseTest;
 import org.junit.Test;
 import variables.Variables;
 
-public class ObranePageTest extends InitWebDriver {
+public class ObranePageTest extends BaseTest {
 
     /**
      * test randomly selects and marks products as 'Obrane' on 'Outlet' page,

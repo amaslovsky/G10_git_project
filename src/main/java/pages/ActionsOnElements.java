@@ -69,6 +69,36 @@ public class ActionsOnElements {
         }
     }
 
+    public boolean isElementVisible(WebElement webElement) {
+        try {
+            boolean state = webElement.isDisplayed();
+            if (state) {
+                logger.info(getElementName(webElement) + " Element is displayed");
+            } else {
+                logger.info(getElementName(webElement) + " Element is not displayed");
+            }
+            return state;
+        } catch (Exception e) {
+            logger.info(getElementName(webElement) + " Element is not displayed");
+            return false;
+        }
+    }
+
+    public boolean isElementVisible(WebElement webElement, String elementName) {
+        try {
+            boolean state = webElement.isDisplayed();
+            if (state) {
+                logger.info(elementName + " Element is displayed");
+            } else {
+                logger.info(elementName + " Element is not displayed");
+            }
+            return state;
+        } catch (Exception e) {
+            logger.info(elementName + " Element is not displayed");
+            return false;
+        }
+    }
+
     protected ArrayList<WebElement> getWebElementsArrayByXpath(String webElements) {
         ArrayList<WebElement> elements = new ArrayList<>(webDriver.findElements(By.xpath(webElements)));
         return elements;

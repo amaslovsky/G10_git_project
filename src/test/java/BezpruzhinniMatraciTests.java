@@ -1,7 +1,7 @@
 import org.junit.Test;
-import initWebdriver.InitWebDriver;
+import baseTest.BaseTest;
 
-public class BezpruzhinniMatraciTests extends InitWebDriver {
+public class BezpruzhinniMatraciTests extends BaseTest {
 
     /**
      * test verifies product sorting functionality on 'BezpruzhinniMatraci' page

@@ -40,5 +40,4 @@ public class RegistrationTest extends BaseTest {
         return excelData.excelCollection();
     }
 
-
 }

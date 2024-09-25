@@ -4,11 +4,11 @@
 .idea/.name
 .idea/workspace.xml
 /.idea/workspace.xml
-target/
-target/generated-sources/
-target/generated-test-sources/
-target/test-classes
-target/site
+#target/
+#target/generated-sources/
+#target/generated-test-sources/
+#target/test-classes
+#target/site
 *.log
 *.log.*
 *.iml

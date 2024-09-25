@@ -1,5 +1,6 @@
 package pages.headerElements;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -12,16 +13,16 @@ public class MenuElement extends ActionsOnElements {
     @FindBy(xpath = "//span[text()='Outlet']")
     private WebElement buttonOutlet;
 
-//    @FindBy(xpath = "//ul//span[text()='Спальня']")
-    @FindBy(xpath = "(//div[contains(@class, 'completed')]//li)[1]")
+    @FindBy(xpath = "//ul//span[text()='Спальня']")
+//    @FindBy(xpath = "(//div[contains(@class, 'completed')]//li)[1]")
     private WebElement buttonSpalnya;
 
-//    @FindBy(xpath = "//span[text()='Матраци']")
-    @FindBy(xpath = "(//div[contains(@class, '-in')]//li)[2]")
+    @FindBy(xpath = "//span[text()='Матраци']")
+//    @FindBy(xpath = "(//div[contains(@class, '-in')]//li)[2]")
     private WebElement buttonMatraci;
 
-//    @FindBy(xpath = "//span[text()='Безпружинні матраци']")
-    @FindBy(xpath = "(//div[contains(@class, '-in')])[10]//li[3]")
+    @FindBy(xpath = "//span[text()='Безпружинні матраци']")
+//    @FindBy(xpath = "(//div[contains(@class, '-in')])[10]//li[3]")
     private WebElement buttonBezpruzhinniMatraci;
 
     public MenuElement(WebDriver webDriver) {
@@ -32,21 +33,25 @@ public class MenuElement extends ActionsOnElements {
         return new MenuElement(webDriver);
     }
 
+    @Step
     public OutletPage clickOnOutletMenuButton() {
         clickOnElement(buttonOutlet);
         return new OutletPage(webDriver);
     }
 
+    @Step
     public MenuElement clickOnSlapnyaMenuButton() {
         clickOnElement(buttonSpalnya);
         return new MenuElement(webDriver);
     }
 
+    @Step
     public MenuElement clickOnMatraciMenuButton() {
         clickOnElement(buttonMatraci);
         return new MenuElement(webDriver);
     }
 
+    @Step
     public BezpruzhinniMatraciPage clickOnBezpruzhinniMatraciMenuButton() {
         clickOnElement(buttonBezpruzhinniMatraci);
         return new BezpruzhinniMatraciPage(webDriver);

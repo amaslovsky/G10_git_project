@@ -1,6 +1,7 @@
 package pages;
 
 import com.google.gson.internal.bind.util.ISO8601Utils;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import static variables.Variables.*;
 

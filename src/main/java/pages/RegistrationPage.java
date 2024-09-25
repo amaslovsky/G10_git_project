@@ -1,14 +1,18 @@
 package pages;
 
+import io.qameta.allure.Allure;
+import io.qameta.allure.Step;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.List;
-
 import static variables.Variables.*;
 
 public class RegistrationPage extends HomePage {
@@ -26,6 +30,7 @@ public class RegistrationPage extends HomePage {
         super(webDriver);
     }
 
+    @Step("Open registration page")
     public RegistrationPage checkRedirectingToRegistrationPage() {
         checkUrl();
         checkBreadCrumb();
@@ -41,37 +46,44 @@ public class RegistrationPage extends HomePage {
     protected WebElement submitButton;
 
 
+    @Step
     public RegistrationPage enterRegistrationUserEmail(String email) {
-    enterText("email", email);
+        enterText("email", email);
     return this;
     }
 
+    @Step
     public RegistrationPage enterRegistrationConfirmEmail(String emailConfirm) {
-    enterText("emailConfirm", emailConfirm);
+        enterText("emailConfirm", emailConfirm);
     return this;
     }
 
+    @Step
     public RegistrationPage enterRegistrationUserPassword(String password) {
-    enterText("password", password);
+        enterText("password", password);
     return this;
     }
 
+    @Step
     public RegistrationPage enterRegistrationUserFirstName(String firstName) {
-    enterText("firstName", firstName);
+        enterText("firstName", firstName);
     return this;
     }
 
+    @Step
     public RegistrationPage enterRegistrationUserLastName(String lastName) {
-    enterText("lastName", lastName);
+        enterText("lastName", lastName);
     return this;
     }
 
+    @Step
     public RegistrationPage activateAcceptTermsAndConditionsCheckbox(String acceptTermsAndConditions) {
         if (!acceptTermsAndConditions.equals(SKIP))
             setCheckBoxON(String.format(inputField, "acceptTermsAndConditions"), "accept Terms And Conditions");
     return this;
     }
 
+    @Step
     public RegistrationPage pressSubmitButton(String submit) {
         if (!submit.equals(SKIP))
             clickOnElement(submitButton, "make an Account Button");
@@ -85,6 +97,7 @@ public class RegistrationPage extends HomePage {
         }
     }
 
+    @Step("check error messages")
     public RegistrationPage checkErrorMessages(String expectedErrors) {
         String[] errorsArrayInExcel = expectedErrors.split(";\\s*\\r?\\n");
 
@@ -103,6 +116,7 @@ public class RegistrationPage extends HomePage {
                     .isIn(errorsArrayInExcel);
         }
         softAssertions.assertAll();
+        Allure.addAttachment("Screenshot", new ByteArrayInputStream(((TakesScreenshot) webDriver).getScreenshotAs(OutputType.BYTES)));
         return this;
     }
 

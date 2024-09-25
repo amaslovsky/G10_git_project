@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.apache.log4j.Logger;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
@@ -37,6 +38,7 @@ public class ProductPage extends ActionsOnElements {
 
     public Logger logger = Logger.getLogger(getClass());
 
+    @Step
     public ProductPage openProductPage() {
         //waitUtilSpinnerWorks();
         //TODO: getRelativeUrl() is not implemented
@@ -45,6 +47,7 @@ public class ProductPage extends ActionsOnElements {
         return this;
     }
 
+    @Step
     public ProductPage checkProductNameAndPriceAreCorrect() {
         String currentProductName = getElementName(homePage.productNameElementOnProductPage);
         Double currentProductPrice = convertStringValueInDouble(getElementName(homePage.productPriceElement));
@@ -55,6 +58,7 @@ public class ProductPage extends ActionsOnElements {
         return this;
     }
 
+    @Step ("add Product to Basket with quantity = {0}")
     public Basket addProductToBasket(int quantity) {
         productQuantity = quantity;
         clearInputFieldAndEnterText(homePage.productQuantityInputField, String.valueOf(productQuantity));
@@ -66,6 +70,7 @@ public class ProductPage extends ActionsOnElements {
         return new HeaderElements(webDriver);
     }
 
+    @Step
     public ProductPage checkSortingCorrect(String sortingType) {
         ArrayList<WebElement> products = getWebElementsArrayByXpath(homePage.allProducts);
         compareElementsPrices(products, sortingType);
@@ -73,6 +78,7 @@ public class ProductPage extends ActionsOnElements {
         return this;
     }
 
+    @Step
     public void checkOnlyAlwaysLowPriceProductsDisplayed() {
         SoftAssertions softAssertions = new SoftAssertions();
         ArrayList<WebElement> products = getWebElementsArrayByXpath(homePage.allProducts);

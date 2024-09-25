@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -14,6 +15,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.ArrayList;
 
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 import static pages.HomePage.spinnerXpath;
 import static utilities.Utilities.*;
 
@@ -191,12 +193,9 @@ public class ActionsOnElements {
     }
 
     public void waitUtilSpinnerWorks() {
-        boolean isSpinnerPresent;
         try {
-//            webDriverWait05sec.until(spinnerXpath.isEnabled());
-            isSpinnerPresent = spinnerXpath.isEnabled();
-            logger.info("Spinner is appeared");
-            if (isSpinnerPresent) {
+            if (spinnerXpath.isDisplayed()) {
+                logger.info("Spinner is appeared");
                 webDriverWait05sec.until(ExpectedConditions
                         .stalenessOf(spinnerXpath));
                 logger.info("Spinner is disappeared");
@@ -208,11 +207,12 @@ public class ActionsOnElements {
 
     protected void clearInputFieldAndEnterText(WebElement webElement, String text) {
         try {
-//            waitUtilSpinnerWorks();
-//            webElement.sendKeys(Keys.chord(Keys.CONTROL, "a"));
             webDriverWait1sec.until(ExpectedConditions.visibilityOf(webElement));
-            webElement.clear();
-            webElement.sendKeys(text, Keys.TAB);
+            actions.moveToElement(webElement);
+//            webElement.clear();
+            webElement.sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
+            webElement.sendKeys(text);
+            webElement.sendKeys(Keys.TAB);
             logger.info(text + " was inputted into element " + getElementName(webElement));
         } catch (Exception e) {
             printErrorAndStopTest(e);
@@ -223,7 +223,8 @@ public class ActionsOnElements {
         try {
             WebElement webElement = webDriver.findElement(By.xpath(xPath));
             webDriverWait1sec.until(ExpectedConditions.visibilityOf(webElement));
-            webElement.clear();
+//            webElement.clear();
+            webElement.sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
             webElement.sendKeys(text);
             webElement.findElement(By.xpath(xPath+"/../label")).click();
             logger.info(text + " was inputted into element " + getElementName(webElement));

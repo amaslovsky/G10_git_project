@@ -1,5 +1,6 @@
 package pages.outletPage;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import pages.HomePage;
@@ -33,6 +34,7 @@ public class OutletPage extends HomePage {
         return this;
     }
 
+    @Step
     public OutletPage markRandomProductsAsObrane() {
         ArrayList<Integer> productsArray = makeArrayOfProducts(allProducts);
         for (int i=1; i<productsArray.size()+1; i++){
@@ -43,6 +45,7 @@ public class OutletPage extends HomePage {
         return this;
     }
 
+    @Step
     public OutletPage getPropertiesFirstProduct() {
         ArrayList<WebElement> elements = getWebElementsArrayByXpath(allProducts);
         productName = getElementName(productNameElement);
@@ -50,6 +53,7 @@ public class OutletPage extends HomePage {
         return this;
     }
 
+    @Step
     public static void waitABit(Integer second){
         try {
             Thread.sleep(second * 1000L);
@@ -58,6 +62,7 @@ public class OutletPage extends HomePage {
         }
     }
 
+    @Step
     public ProductPage clickOnFirstProduct() {
         clickOnElement(productNameElement);
         return new ProductPage(webDriver);

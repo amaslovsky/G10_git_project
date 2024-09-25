@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -77,6 +78,7 @@ import static variables.Variables.url;
         return webDriver.findElement(By.xpath(fullXpath));
     }
 
+    @Step
     public HomePage openHomePage() {
         webDriver.get(url);
         closeCookiePopup();

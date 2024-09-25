@@ -36,12 +36,12 @@ public class BasketTests extends BaseTest {
                 .getHeaderElement()
                 .checkProductAddedToBasket()
                 .clickOnBasketButton()
-                .checkProductAmountAndPriceInBasketPopup() //тут тільки кількість та ці, бо ім'я не співпадає з імененем на сторінці продукту
-                .changeProductNumberInBasketPopup(numberOfProductsChanged)
-                .checkProductAmountAndPriceInBasketPopup()
+                .checkProductAmountAndPriceInBasket() //тут тільки кількість та ціна, бо ім'я не збігатися з іменем на сторінці продукту
+                .changeProductNumberInBasket(numberOfProductsChanged)
+                .checkProductAmountAndPriceInBasket()
                 .openBasketPage()
-                .changeProductNumberInBasketPopup(numberOfProducts)
-                .checkProductAmountAndPriceInBasketPopup();
+                .changeProductNumberInBasket(numberOfProducts)
+                .checkProductAmountAndPriceInBasket();
     }
 
 }

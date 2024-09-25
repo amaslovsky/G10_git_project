@@ -1,5 +1,6 @@
 package pages.obranePage;
 
+import io.qameta.allure.Step;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
@@ -38,6 +39,7 @@ public class ObranePage extends HomePage {
         return this;
     }
 
+    @Step
     public ObranePage checkSelectedProductsDisplayedOnObranePage() {
         ArrayList<WebElement> products = getWebElementsArrayByXpath(productsSection);
 
@@ -59,6 +61,7 @@ public class ObranePage extends HomePage {
         return this;
     }
 
+    @Step
     protected boolean checkProductsFromObraneListPresentOnPage (ArrayList<WebElement> elements, ArrayList<String> getNamesOfSelectedProducts) {
         SoftAssertions softAssertions = new SoftAssertions();
         boolean isPresent = false;

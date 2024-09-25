@@ -1,11 +1,12 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.junit.Assert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import static utilities.Utilities.*;
 import static variables.Variables.*;
@@ -52,9 +53,7 @@ public class Basket extends ActionsOnElements {
     @FindBy(xpath = "//button[contains(@class, 'basket')]")
     protected WebElement addToBasketButton;
 
-
-
-
+    @Step
     public Basket checkProductNameAndPriceInCheckoutPopup() {
         String productNameOnCheckout = getElementName(productNameElementOnCheckoutPopup);
         int productQuantityOnCheckout = convertStringValueInInt(
@@ -74,12 +73,14 @@ public class Basket extends ActionsOnElements {
         return this;
     }
 
+    @Step
     public ProductPage closeCheckoutPopup() {
         clickOnElement(continueShoppingButton);
         return new ProductPage(webDriver);
     }
 
-    public Basket checkProductAmountAndPriceInBasketPopup() {
+    @Step
+    public Basket checkProductAmountAndPriceInBasket() {
         Assert.assertEquals("Product amount is not correct",
                 productQuantity, convertStringValueInInt(productQuantityElementOnBasketPopup.getAttribute("value")));
         logger.info("Product amount is correct");
@@ -90,7 +91,8 @@ public class Basket extends ActionsOnElements {
 
     }
 
-    public Basket changeProductNumberInBasketPopup(int newQuantity) {
+    @Step("change Product number in Basket to quantity = {0}")
+    public Basket changeProductNumberInBasket(int newQuantity) {
         productQuantity = newQuantity;
         clearInputFieldAndEnterText
                 (productQuantityElementOnBasketPopup, String.valueOf(productQuantity));
@@ -98,8 +100,10 @@ public class Basket extends ActionsOnElements {
         return this;
     }
 
+    @Step
     public Basket openBasketPage() {
         clickOnElement(buttonContinue);
+        webDriverWait1sec.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@class='btn cta primary']")));
 //        waitUtilSpinnerWorks();
         return new Basket(webDriver);
     }
